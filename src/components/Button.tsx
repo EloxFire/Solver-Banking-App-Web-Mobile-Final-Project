@@ -15,7 +15,7 @@ interface ButtonPropsInterface {
 
 export default function Button(props:ButtonPropsInterface){
   return(
-    <TouchableOpacity style={[commonStyles.button, {width:props.width}]}>
+    <TouchableOpacity style={[commonStyles.button, {width:props.width, fontFamily:'MontserratBold'}]}>
       {
         props.icon &&
         <Icon name={props.icon_name} type={props.icon_type} color={props.icon_color}/>

@@ -14,6 +14,7 @@ export const commonStyles = {
     height: 45,
     margin: 2,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   forgotPass:{
     textDecorationLine: 'underline',

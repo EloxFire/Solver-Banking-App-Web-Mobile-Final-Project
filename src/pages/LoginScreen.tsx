@@ -25,6 +25,8 @@ export default function LoginScreen({ navigation }: any) {
             title="Connexion"
             text_color={white}
             bg={red}
+            nav={navigation}
+            nav_direction="SignIn"
           />
           <Button
             width="20%"

@@ -14,11 +14,13 @@ interface ButtonPropsInterface {
   text_color,
   width: string,
   bg: string,
+  nav: any,
+  nav_direction: string,
 }
 
 export default function Button(props:ButtonPropsInterface){
   return(
-    <TouchableOpacity style={[commonStyles.button, {width:props.width, backgroundColor: props.bg}]}>
+    <TouchableOpacity onPress={() => {props.nav.navigate(props.nav_direction)}} style={[commonStyles.button, {width:props.width, backgroundColor: props.bg}]}>
       {
         props.title !== "" &&
         <Text style={[commonStyles.buttonText, {color: props.text_color}]}>{props.title}</Text>

@@ -4,7 +4,6 @@ export const loginStyles = {
   title:{
     color: black,
     fontSize: 75,
-    // fontWeight: 'bold',
     fontFamily: 'MontserratBold',
   },
   titleSpan:{
@@ -20,11 +19,12 @@ export const loginStyles = {
     marginBottom: 230,
   },
   signinContainer:{
-    // flex: 1,
-    flexDirection: 'row'
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   signupContainer:{
-    // flex: 1,
+    width: '100%',
     flexDirection: 'row'
   }
 }

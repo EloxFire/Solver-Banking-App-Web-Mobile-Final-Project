@@ -21,22 +21,27 @@ export default function LoginScreen({ navigation }: any) {
       <View>
         <View style={loginStyles.signinContainer}>
           <Button
-            width="70%"
+            width="78.5%"
             title="Connexion"
             text_color={white}
+            bg={red}
           />
           <Button
             width="20%"
+            // title="Connexion"
+            text_color={white}
             icon icon_name="finger-print-outline"
             icon_type="ionicon"
             icon_color={white}
+            bg={red}
           />
         </View>
         <View style={loginStyles.signupContainer}>
           <Button
-            width="90%"
+            width="100%"
             title="Inscription"
             text_color={white}
+            bg={black}
           />
         </View>
         <Text style={commonStyles.forgotPass}>Mot de passe oublié ?</Text>

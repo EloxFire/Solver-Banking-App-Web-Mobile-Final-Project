@@ -6,9 +6,6 @@ export const loginStyles = {
     fontSize: 75,
     fontFamily: 'MontserratBold',
   },
-  titleSpan:{
-    color: red,
-  },
   subtitle:{
     fontFamily: 'Montserrat',
     color: black,

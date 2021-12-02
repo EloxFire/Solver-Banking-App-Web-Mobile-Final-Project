@@ -28,5 +28,8 @@ export const commonStyles = {
     textDecorationLine: 'underline',
     fontSize: 18,
     marginTop: 10,
+  },
+  redSpan:{
+    color: red,
   }
 }

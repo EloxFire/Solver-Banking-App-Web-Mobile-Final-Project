@@ -15,7 +15,7 @@ export default function LoginScreen({ navigation }: any) {
     <View style={commonStyles.viewStyle}>
       <StatusBar style="dark" />
       <View style={loginStyles.titleContainer}>
-        <Text style={loginStyles.title}><Text style={loginStyles.titleSpan}>S</Text>olver</Text>
+        <Text style={loginStyles.title}><Text style={commonStyles.redSpan}>S</Text>olver</Text>
         <Text style={loginStyles.subtitle}>Une nouvelle façon {"\n"}de faire ses comptes</Text>
       </View>
       <View>
@@ -44,6 +44,8 @@ export default function LoginScreen({ navigation }: any) {
             title="Inscription"
             text_color={white}
             bg={black}
+            nav={navigation}
+            nav_direction="SignUp"
           />
         </View>
         <Text style={commonStyles.forgotPass}>Mot de passe oublié ?</Text>

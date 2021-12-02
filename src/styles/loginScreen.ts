@@ -4,14 +4,20 @@ export const loginStyles = {
   title:{
     color: black,
     fontSize: 75,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontFamily: 'MontserratBold',
   },
   titleSpan:{
     color: red,
   },
   subtitle:{
+    fontFamily: 'Montserrat',
     color: black,
-    fontSize: 35
+    fontSize: 30
+  },
+  titleContainer:{
+    marginTop: 200,
+    marginBottom: 230,
   },
   signinContainer:{
     // flex: 1,

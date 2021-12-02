@@ -14,7 +14,7 @@ export default function LoginScreen({ navigation }: any) {
   return (
     <View style={commonStyles.viewStyle}>
       <StatusBar style="dark" />
-      <View>
+      <View style={loginStyles.titleContainer}>
         <Text style={loginStyles.title}><Text style={loginStyles.titleSpan}>S</Text>olver</Text>
         <Text style={loginStyles.subtitle}>Une nouvelle façon {"\n"}de faire ses comptes</Text>
       </View>

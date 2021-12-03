@@ -5,7 +5,7 @@ import {commonStyles} from '../styles/commonStyles';
 import {red, black, white, green} from './variables';
 
 
-interface ButtonPropsInterface {
+interface NavigationButtonPropsInterface {
   icon: Boolean,
   icon_name: string,
   icon_type: string,
@@ -16,9 +16,10 @@ interface ButtonPropsInterface {
   bg: string,
   nav: any,
   nav_direction: string,
+  navigation: Boolean,
 }
 
-export default function Button(props:ButtonPropsInterface){
+export default function NavigationButton(props:NavigationButtonPropsInterface){
   return(
     <TouchableOpacity onPress={() => {props.nav.navigate(props.nav_direction)}} style={[commonStyles.button, {width:props.width, backgroundColor: props.bg}]}>
       {

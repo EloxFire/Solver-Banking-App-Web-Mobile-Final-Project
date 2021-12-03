@@ -46,5 +46,15 @@ export const commonStyles = {
     marginTop: 20,
     fontSize: 20,
     color: black,
+  },
+  successText:{
+    color: green,
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  failureText:{
+    color: red,
+    fontSize: 20,
+    textAlign: 'center',
   }
 }

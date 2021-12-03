@@ -8,7 +8,7 @@ import {red, black, white, green} from '../styles/variables';
 import { commonStyles } from '../styles/commonStyles';
 import { signinPageStyles } from '../styles/signinPageStyles';
 
-export default function SigninPage() {
+export default function SigninPage({ navigation }: any) {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

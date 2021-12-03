@@ -11,7 +11,7 @@ interface ButtonPropsInterface {
   icon_type: string,
   icon_color: string,
   title: string,
-  text_color,
+  text_color: string,
   width: string,
   bg: string,
   nav: any,

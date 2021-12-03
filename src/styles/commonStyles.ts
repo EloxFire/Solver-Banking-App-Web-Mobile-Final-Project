@@ -31,5 +31,20 @@ export const commonStyles = {
   },
   redSpan:{
     color: red,
+  },
+  textInput:{
+    borderRadius: 10,
+    borderWidth: 1,
+    padding: 2,
+    paddingLeft: 5,
+    paddingRight: 5,
+    marginTop: 2,
+    fontFamily: 'Montserrat',
+  },
+  textLabel:{
+    fontFamily: 'Montserrat',
+    marginTop: 20,
+    fontSize: 20,
+    color: black,
   }
 }

@@ -1,21 +1,34 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, View } from 'react-native';
+import { commonStyles } from '../styles/commonStyles';
+import { overviewStyles } from '../styles/overviewStyles';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 export default function OverviewPage({ navigation } : any) {
+
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if(user){
+        console.log(user);
+        setUser({
+          uuid: user.uid,
+          username: user.displayName ? user.displayName : "",
+          mail: user.email,
+          emailVerified: user.isEmailVerified,
+          phone: user.phoneNumber ? user.phoneNumber : "",
+        })
+      }else{
+        console.log("User signed out");
+      }
+    });
+  }, [])
+
   return (
-    <View style={styles.container}>
-      <StatusBar style="dark" />
-      <Text>BIENVENUE !</Text>
-      <Button onPress={() => navigation.navigate('Login')} title="Retour au choix de login"/>
+    <View style={commonStyles.viewStyle}>
+      <Text style={overviewStyles.title}><Text style={commonStyles.redSpan}>B</Text>ienvenue {user.username} !</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

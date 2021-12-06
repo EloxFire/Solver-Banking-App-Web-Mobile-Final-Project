@@ -7,6 +7,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 export default function OverviewPage({ navigation } : any) {
 
   const [user, setUser] = useState({});
+  const monthsList = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 
   useEffect(() => {
     const auth = getAuth();
@@ -28,7 +29,11 @@ export default function OverviewPage({ navigation } : any) {
 
   return (
     <View style={commonStyles.viewStyle}>
-      <Text style={overviewStyles.title}><Text style={commonStyles.redSpan}>B</Text>ienvenue {user.username} !</Text>
+      <Text style={overviewStyles.title}><Text style={commonStyles.redSpan}>B</Text>onjour {user.username} !</Text>
+
+      <View>
+        <Text><Text>V</Text>os dépenses de {monthsList[new Date().getMonth().toString().toLowerCase()]}</Text>
+      </View>
     </View>
   );
 }

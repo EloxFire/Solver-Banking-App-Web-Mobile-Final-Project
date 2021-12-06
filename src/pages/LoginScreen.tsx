@@ -4,8 +4,10 @@ import { StyleSheet, Text, ScrollView, View, TouchableOpacity } from 'react-nati
 import {commonStyles} from '../styles/commonStyles';
 import {loginStyles} from '../styles/loginScreen';
 import {Icon} from 'react-native-elements';
+import { useRoute } from '@react-navigation/native';
 import * as LocalAuthentication from 'expo-local-authentication';
 import {red, black, white, green} from '../styles/variables';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 
 import NavigationButton from '../components/NavigationButton';
@@ -13,12 +15,23 @@ import NavigationButton from '../components/NavigationButton';
 export default function LoginScreen({ navigation }: any) {
 
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
+
   useEffect(() => {
     (async () => {
       const compatible = await LocalAuthentication.hasHardwareAsync();
       setIsBiometricSupported(compatible);
     })();
   });
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if(user){
+        console.log(user);
+        navigation.navigate("Overview");
+      }
+    });
+  }, []);
 
   const handleBiometricAuth = async () => {
     const biometricAuth = await LocalAuthentication.authenticateAsync({
@@ -28,7 +41,6 @@ export default function LoginScreen({ navigation }: any) {
     });
   }
 
-  // console.log(StatusBar.currentHeight);
   return (
     <View style={commonStyles.viewStyle}>
       <StatusBar style="dark" />

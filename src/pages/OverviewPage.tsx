@@ -7,6 +7,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDocs, collection, query, where } from "firebase/firestore";
 import { red } from '../styles/variables';
 import ExpensesLite from '../components/ExpenseLite';
+import HandleExpenseButton from '../components/HandleExpenseButton';
 
 export default function OverviewPage({ navigation } : any) {
 
@@ -87,12 +88,18 @@ export default function OverviewPage({ navigation } : any) {
         }
       </View>
 
-      <View>
-        <Text>Voir plus</Text>
+      <View style={overviewStyles.seeMoreContainer}>
+        <Text style={overviewStyles.seeMoreText}>Voir plus ></Text>
       </View>
 
-      <View>
-        <Text>Gérer les dépenses :</Text>
+      <View style={overviewStyles.handleExpensesContainer}>
+        <Text style={overviewStyles.handleExpensesTitle}><Text style={commonStyles.redSpan}>G</Text>érer les dépenses :</Text>
+
+        <View style={overviewStyles.handleExpensesChoisesContainer}>
+          <HandleExpenseButton icon="trash-outline"/>
+          <HandleExpenseButton icon="add-outline"/>
+          <HandleExpenseButton icon="share-social-outline"/>
+        </View>
       </View>
     </View>
   );

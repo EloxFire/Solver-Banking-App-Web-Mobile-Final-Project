@@ -56,5 +56,27 @@ export const overviewStyles = {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  seeMoreContainer:{
+    alignItems: 'flex-end',
+  },
+  seeMoreText:{
+    marginTop: 10,
+    fontSize: 18,
+    fontFamily: 'MontserratBold',
+  },
+  handleExpensesContainer:{
+    marginTop: 50,
+  },
+  handleExpensesTitle:{
+    fontSize: 20,
+    fontFamily: 'MontserratBold',
+  },
+  handleExpensesChoisesContainer:{
+    marginTop: 20,
+    paddingLeft: 30,
+    paddingRight: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
 }

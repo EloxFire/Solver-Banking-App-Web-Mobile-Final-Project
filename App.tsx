@@ -12,6 +12,7 @@ import LoginScreen from './src/pages/LoginScreen';
 import SigninPage from './src/pages/SigninPage';
 import SignupPage from './src/pages/SignupPage';
 import OverviewPage from './src/pages/OverviewPage';
+import Navbar from './src/components/Navbar';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,7 +39,6 @@ export default function App() {
 
   return (
     <Fragment>
-      {/* <StatusBar theme="light"/> */}
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="Login" component={LoginScreen} />
@@ -47,6 +47,7 @@ export default function App() {
           <Stack.Screen name="Overview" component={OverviewPage} />
         </Stack.Navigator>
       </NavigationContainer>
+      <Navbar/>
     </Fragment>
   );
 }

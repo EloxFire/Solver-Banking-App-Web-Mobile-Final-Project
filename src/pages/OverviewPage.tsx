@@ -8,18 +8,23 @@ import { getFirestore, doc, getDocs, collection, query, where } from "firebase/f
 import { red } from '../styles/variables';
 import ExpensesLite from '../components/ExpenseLite';
 import HandleExpenseButton from '../components/HandleExpenseButton';
+import { balanceCalculator } from '../utils/balance_calculator';
 
 export default function OverviewPage({ navigation } : any) {
 
   const [user, setUser] = useState({});
   const [userExpenses, setUserExpenses] = useState([]);
+  const [monthlyExpenses, setMonthlyExpenses] = useState([]);
+  const [monthlyIncomes, setMonthlyIncomes] = useState([]);
+  const [balance, setBalance] = useState("0");
+
   const monthsList = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if(user){
-        console.log(user);
+        // console.log(user);
         setUser({
           uuid: user.uid,
           username: user.displayName ? user.displayName : "",
@@ -32,17 +37,72 @@ export default function OverviewPage({ navigation } : any) {
 
     const db = getFirestore();
     const expenseRef = collection(db, 'expenses');
-    const q = query(expenseRef, where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"));
 
-    getDocs(q)
+    // For month range
+    let date = new Date(), y = date.getFullYear(), m = date.getMonth();
+    let firstDay = new Date(y, m, 1);
+    let lastDay = new Date(y, m + 1, 0);
+
+    //GET ALL OPERATIONS REGISTERED
+    const q1 = query(expenseRef,
+      where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3")
+    );
+    // GET CURRENT MONTH EXPENSES
+    const q2 = query(expenseRef,
+      where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"),
+      where('expense_date', ">=", firstDay),
+      where('expense_date', "<=", lastDay),
+      where('state', "==", false)
+    );
+    // GET CURRENT MONTH INCOMES
+    const q3 = query(expenseRef,
+      where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"),
+      where('expense_date', ">=", firstDay),
+      where('expense_date', "<=", lastDay),
+      where('state', "==", true)
+    );
+
+    getDocs(q1)
     .then((response) => {
       const data = response.docs.map((doc, index) => {
         return doc.data();
       });
-      console.log(data);
+      // console.log(data);
       setUserExpenses(data);
-    })
+    });
+
+    // Getting user current month total amount
+    getDocs(q2)
+    .then((response) => {
+      const data = response.docs.map((doc, index) => {
+        return doc.data();
+      });
+      // console.log(data);
+      const amounts = data.map((item, index) => {
+        return item.expense_amount;
+      })
+      // console.log("Expenses :", amounts);
+      setMonthlyExpenses(amounts);
+    });
+
+    // Getting user current month total amount
+    getDocs(q3)
+    .then((response) => {
+      const data = response.docs.map((doc, index) => {
+        return doc.data();
+      });
+      const amounts = data.map((item, index) => {
+        return item.expense_amount;
+      })
+      console.log("Incomes :", amounts);
+      setMonthlyIncomes(amounts);
+    });
   }, []);
+
+  useEffect(() => {
+    // CALCULATING TOTAL BALANCE
+    setBalance(balanceCalculator(monthlyExpenses, monthlyIncomes))
+  }, [monthlyExpenses, monthlyIncomes]);
 
   const addNewExpense = () => {
     navigation.navigate("addExpense");
@@ -55,7 +115,7 @@ export default function OverviewPage({ navigation } : any) {
       <View style={overviewStyles.balanceContainer}>
         <View>
           <Text style={overviewStyles.balanceTitle}><Text style={commonStyles.redSpan}>V</Text>os dépenses de {monthsList[new Date().getMonth().toString().toLowerCase()]}</Text>
-          <Text style={overviewStyles.balancePrice}>537.58 <Text style={commonStyles.redSpan}>€</Text></Text>
+          <Text style={overviewStyles.balancePrice}>{balance} <Text style={commonStyles.redSpan}>€</Text></Text>
         </View>
       </View>
 

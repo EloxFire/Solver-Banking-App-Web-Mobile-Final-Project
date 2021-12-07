@@ -7,7 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from './firebaseConfig';
-import {red, black, white, green} from './styles/variables';
+import { red, black, white, green } from './src/styles/variables';
 
 
 import LoginScreen from './src/pages/LoginScreen';
@@ -50,7 +50,9 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
       <Navbar
-        profilIconColor={white}
+        profilIconColor={black}
+        homeIconColor={black}
+        statsIconColor={black}
       />
     </Fragment>
   );

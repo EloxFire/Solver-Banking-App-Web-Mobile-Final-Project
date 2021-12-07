@@ -9,5 +9,8 @@ export const navbarStyles = {
     backgroundColor: '#EEEEEE',
     borderTopWidth: .5,
     borderTopColor: black,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
   }
 }

@@ -3,7 +3,8 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { commonStyles } from '../styles/commonStyles';
 import { addExpenseStyle } from '../styles/addExpensesStyles';
 import CustomFormInput from '../components/CustomFormInput';
-import DatePicker from 'react-native-date-picker';
+import { collection, addDoc, getFirestore } from "firebase/firestore";
+// import DatePicker from 'react-native-date-picker';
 
 export default function AddExpense({ navigation }: any){
 
@@ -14,7 +15,20 @@ export default function AddExpense({ navigation }: any){
   const [operationDateModalOpened, setOperationDateModalOpened] = useState(false);
 
   const addOperation = () => {
+    let categories = operationCategories.split(',');
 
+    const db = getFirestore();
+    addDoc(collection(db, "cities"), {
+      expense_amount: parseInt(operationAmount),
+      expensesCategories: categories,
+      expense_date: new Date(),
+      market_name: operationName,
+      state: false,
+      user_uid: '5pxz72tpraNTsetbb3PXtRXmn6I3'
+    })
+    .then((response) => {
+      console.log(response);
+    });
   }
 
   return(

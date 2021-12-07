@@ -25,11 +25,15 @@ export default function AddExpense({ navigation }: any){
         <CustomFormInput onChangeText={(text) => setOperationName(text)} label="Nom" placeholder="Nom affiché"/>
         <CustomFormInput onChangeText={(text) => setOperationAmount(text)} label="Montant" placeholder="Montant en euros"/>
         <CustomFormInput onChangeText={(text) => setOperationCategories(text)} label="Catégories" placeholder="Liste des catégories spérarées par une ','"/>
-        <Text style={commonStyles.textLabel}>Date de l'opération</Text>
+        <Text style={commonStyles.textLabel}>Date de l'opération <Text style={commonStyles.smallLabel}>(date actuelle par défaut)</Text></Text>
         <TouchableOpacity onPress={() => setOperationDateModalOpened(true)} style={commonStyles.datePickerOpenner}>
           <Text style={commonStyles.datePickerOpennerText}>Choisir une date</Text>
         </TouchableOpacity>
-        <DatePicker
+        <Text style={commonStyles.textLabel}>Heure de l'opération <Text style={commonStyles.smallLabel}>(heure actuelle par défaut)</Text></Text>
+        <TouchableOpacity onPress={() => setOperationDateModalOpened(true)} style={commonStyles.datePickerOpenner}>
+          <Text style={commonStyles.datePickerOpennerText}>Choisir une heure</Text>
+        </TouchableOpacity>
+        {/* <DatePicker //NOT WORKING
           modal
           open={operationDateModalOpened}
           date={operationDate}
@@ -40,7 +44,10 @@ export default function AddExpense({ navigation }: any){
           onCancel={() => {
             setOperationDateModalOpened(false)
           }}
-        />
+        /> */}
+        <TouchableOpacity onPress={() => addOperation()} style={[commonStyles.button, {marginTop: 20}]}>
+          <Text style={commonStyles.buttonText}>Ajouter l'operation</Text>
+        </TouchableOpacity>
 
       </View>
     </View>

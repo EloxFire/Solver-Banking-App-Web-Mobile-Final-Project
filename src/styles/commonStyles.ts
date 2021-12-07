@@ -22,6 +22,7 @@ export const commonStyles = {
     fontFamily: 'MontserratBold',
     textTransform: 'uppercase',
     fontSize: 20,
+    color: white,
   },
   forgotPass:{
     fontFamily: 'Montserrat',
@@ -48,6 +49,9 @@ export const commonStyles = {
     fontSize: 20,
     color: black,
   },
+  smallLabel:{
+    fontSize: 15,
+  },
   successText:{
     color: green,
     fontSize: 20,
@@ -61,7 +65,7 @@ export const commonStyles = {
   datePickerOpenner:{
     borderRadius: 10,
     borderWidth: 1,
-    height: 30,
+    height: 35,
     padding: 2,
     paddingLeft: 5,
     paddingRight: 5,
@@ -70,6 +74,7 @@ export const commonStyles = {
     justifyContent: 'center',
   },
   datePickerOpennerText:{
-    fontSize: 15
+    fontSize: 15,
+    opacity: .5,
   }
 }

@@ -57,5 +57,19 @@ export const commonStyles = {
     color: red,
     fontSize: 20,
     textAlign: 'center',
+  },
+  datePickerOpenner:{
+    borderRadius: 10,
+    borderWidth: 1,
+    height: 30,
+    padding: 2,
+    paddingLeft: 5,
+    paddingRight: 5,
+    marginTop: 2,
+    fontFamily: 'Montserrat',
+    justifyContent: 'center',
+  },
+  datePickerOpennerText:{
+    fontSize: 15
   }
 }

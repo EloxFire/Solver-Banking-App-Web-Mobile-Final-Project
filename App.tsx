@@ -10,11 +10,12 @@ import { firebaseConfig } from './firebaseConfig';
 import { red, black, white, green } from './src/styles/variables';
 
 
+import Navbar from './src/components/Navbar';
 import LoginScreen from './src/pages/LoginScreen';
 import SigninPage from './src/pages/SigninPage';
 import SignupPage from './src/pages/SignupPage';
+import AddExpense from './src/pages/AddExpense';
 import OverviewPage from './src/pages/OverviewPage';
-import Navbar from './src/components/Navbar';
 
 const Stack = createNativeStackNavigator();
 
@@ -47,13 +48,14 @@ export default function App() {
           <Stack.Screen name="SignIn" component={SigninPage} />
           <Stack.Screen name="SignUp" component={SignupPage} />
           <Stack.Screen name="Overview" component={OverviewPage} />
+          <Stack.Screen name="AddExpense" component={AddExpense} />
         </Stack.Navigator>
+        <Navbar
+          profilIconColor={black}
+          homeIconColor={black}
+          statsIconColor={black}
+        />
       </NavigationContainer>
-      <Navbar
-        profilIconColor={black}
-        homeIconColor={black}
-        statsIconColor={black}
-      />
     </Fragment>
   );
 }

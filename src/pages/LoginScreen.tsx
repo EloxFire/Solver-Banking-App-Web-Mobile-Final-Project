@@ -8,9 +8,8 @@ import { useRoute } from '@react-navigation/native';
 import * as LocalAuthentication from 'expo-local-authentication';
 import {red, black, white, green} from '../styles/variables';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
-
 import NavigationButton from '../components/NavigationButton';
+
 
 export default function LoginScreen({ navigation }: any) {
 

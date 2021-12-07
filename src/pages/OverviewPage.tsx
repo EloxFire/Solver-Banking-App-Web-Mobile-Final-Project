@@ -104,10 +104,6 @@ export default function OverviewPage({ navigation } : any) {
     setBalance(balanceCalculator(monthlyExpenses, monthlyIncomes))
   }, [monthlyExpenses, monthlyIncomes]);
 
-  const addNewExpense = () => {
-    navigation.navigate("addExpense");
-  }
-
   return (
     <View style={commonStyles.viewStyle}>
       <Text style={overviewStyles.title}><Text style={commonStyles.redSpan}>B</Text>onjour {user.username} !</Text>
@@ -126,7 +122,7 @@ export default function OverviewPage({ navigation } : any) {
           userExpenses.length === 0 ?
           <View style={overviewStyles.addExpenseContainer}>
             <Text style={overviewStyles.noExpensesText}>Aucune dépense enregistrée.</Text>
-            <TouchableOpacity onPress={() => addNewExpense()} style={overviewStyles.addExpenseTextButton}>
+            <TouchableOpacity onPress={() => navigator.navigate("AddExpense")} style={overviewStyles.addExpenseTextButton}>
               <Icon name="add-outline" type="ionicon" color={red}/>
               <Text style={overviewStyles.addExpenseText}>Ajouter une dépense</Text>
             </TouchableOpacity>
@@ -156,9 +152,9 @@ export default function OverviewPage({ navigation } : any) {
         <Text style={overviewStyles.handleExpensesTitle}><Text style={commonStyles.redSpan}>G</Text>érer les dépenses :</Text>
 
         <View style={overviewStyles.handleExpensesChoisesContainer}>
-          <HandleExpenseButton icon="trash-outline"/>
-          <HandleExpenseButton icon="add-outline"/>
-          <HandleExpenseButton icon="share-social-outline"/>
+          <HandleExpenseButton icon="trash-outline" route="AddExpense"/>
+          <HandleExpenseButton icon="add-outline" route="AddExpense"/>
+          <HandleExpenseButton icon="share-social-outline" route="AddExpense"/>
         </View>
       </View>
     </View>

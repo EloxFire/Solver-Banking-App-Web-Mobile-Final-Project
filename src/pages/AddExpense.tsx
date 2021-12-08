@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { commonStyles } from '../styles/commonStyles';
 import { addExpenseStyle } from '../styles/addExpensesStyles';
@@ -13,6 +13,14 @@ export default function AddExpense({ navigation }: any){
   const [operationCategories, setOperationCategories] = useState("");
   const [operationDate, setOperationDate] = useState(new Date());
   const [operationDateModalOpened, setOperationDateModalOpened] = useState(false);
+
+  useEffect(() => {
+    console.log("MOUNT ADD EXPENSE");
+
+    return function cleanup(){
+      console.log("UNMOUNT ADD EXPENSE");
+    }
+  }, []);
 
   const addOperation = () => {
     let categories = operationCategories.split(',');

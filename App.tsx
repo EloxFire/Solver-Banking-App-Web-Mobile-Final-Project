@@ -7,7 +7,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from './firebaseConfig';
+import { doc, onSnapshot } from "firebase/firestore";
 import { red, black, white, green } from './src/styles/variables';
+import * as LocalAuthentication from 'expo-local-authentication';
 
 
 import Navbar from './src/components/Navbar';
@@ -22,14 +24,33 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [isBiometricSupported, setIsBiometricSupported] = useState(false);
 
   const loadFonts = async () => {
     await useFonts(); // We have to await this call here
   };
 
   useEffect(() => {
+    (async () => {
+      const compatible = await LocalAuthentication.hasHardwareAsync();
+      setIsBiometricSupported(compatible);
+    })();
+
+    handleBiometricAuth();
+  });
+
+  useEffect(() => {
     const app = initializeApp(firebaseConfig);
-  }, [])
+  }, []);
+
+
+  const handleBiometricAuth = async () => {
+    const biometricAuth = await LocalAuthentication.authenticateAsync({
+      promptMessage: "Vérifiez votre identité.",
+      disableDeviceFallback: true,
+      cancelLabel: "Cancel"
+    });
+  }
 
   if(!fontsLoaded){
     return (

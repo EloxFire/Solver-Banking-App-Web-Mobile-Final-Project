@@ -5,40 +5,21 @@ import {commonStyles} from '../styles/commonStyles';
 import {loginStyles} from '../styles/loginScreen';
 import {Icon} from 'react-native-elements';
 import { useRoute } from '@react-navigation/native';
-import * as LocalAuthentication from 'expo-local-authentication';
 import {red, black, white, green} from '../styles/variables';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import NavigationButton from '../components/NavigationButton';
 
 
 export default function LoginScreen({ navigation }: any) {
-
-  const [isBiometricSupported, setIsBiometricSupported] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      const compatible = await LocalAuthentication.hasHardwareAsync();
-      setIsBiometricSupported(compatible);
-    })();
-  });
-
-  useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if(user){
-        console.log(user);
-        navigation.navigate("Overview");
-      }
-    });
-  }, []);
-
-  const handleBiometricAuth = async () => {
-    const biometricAuth = await LocalAuthentication.authenticateAsync({
-      promptMessage: "Connectez vous avec votre empreinte.",
-      disableDeviceFallback: true,
-      cancelLabel: "Cancel"
-    });
-  }
+  // useEffect(() => {
+  //   const auth = getAuth();
+  //   onAuthStateChanged(auth, (user) => {
+  //     if(user){
+  //       console.log(user);
+  //       navigation.navigate("Overview");
+  //     }
+  //   });
+  // }, []);
 
   return (
     <View style={commonStyles.viewStyle}>
@@ -50,7 +31,7 @@ export default function LoginScreen({ navigation }: any) {
       <View>
         <View style={loginStyles.signinContainer}>
           <NavigationButton
-            width="78.5%"
+            width="100%"
             title="Connexion"
             text_color={white}
             bg={red}
@@ -66,9 +47,6 @@ export default function LoginScreen({ navigation }: any) {
             icon_color={white}
             bg={red}
           /> */}
-          <TouchableOpacity onPress={handleBiometricAuth} style={[commonStyles.button, {backgroundColor: red, width:'20%'}]}>
-            <Icon name="finger-print-outline" type="ionicon" color={white}/>
-          </TouchableOpacity>
         </View>
         <View style={loginStyles.signupContainer}>
           <NavigationButton

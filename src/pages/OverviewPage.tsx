@@ -21,23 +21,24 @@ export default function OverviewPage({ navigation } : any) {
   const monthsList = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 
   useEffect(() => {
+    console.log("MOUNT OVERVIEW");
+
     // USER UUID uid "5pxz72tpraNTsetbb3PXtRXmn6I3"
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if(user){
-        // console.log(user);
-        setUser({
-          uuid: user.uid,
-          username: user.displayName ? user.displayName : "",
-          mail: user.email,
-          emailVerified: user.isEmailVerified,
-          phone: user.phoneNumber ? user.phoneNumber : "",
-        })
-      }
-    });
+    const firebaseUser = auth.currentUser;
+    if(firebaseUser !== null){
+      setUser({
+        uuid: firebaseUser.uid,
+        username: firebaseUser.displayName ? firebaseUser.displayName : "",
+        mail: firebaseUser.email,
+        emailVerified: firebaseUser.isEmailVerified,
+        phone: firebaseUser.phoneNumber ? firebaseUser.phoneNumber : "",
+      });
+    }
   }, []);
 
   useEffect(() => {
+    console.log("USER before DB CALLS", user);
     if(user !== undefined){
       const db = getFirestore();
       const expenseRef = collection(db, 'expenses');
@@ -47,22 +48,25 @@ export default function OverviewPage({ navigation } : any) {
       let firstDay = new Date(y, m, 1);
       let lastDay = new Date(y, m + 1, 0);
 
+      // console.log('TYPEOF', typeof(user.uuid));
+
       //GET ALL OPERATIONS REGISTERED
       const q1 = query(expenseRef,
-        where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"),
+        where("user_uid", "==", user.uuid),
         orderBy("expense_date", "desc"),
         limit(4)
       );
       // GET CURRENT MONTH EXPENSES
       const q2 = query(expenseRef,
-        where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"),
+        where("user_uid", "==", user.uuid),
         where('expense_date', ">=", firstDay),
         where('expense_date', "<=", lastDay),
         where('state', "==", false)
       );
+
       // GET CURRENT MONTH INCOMES
       const q3 = query(expenseRef,
-        where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"),
+        where("user_uid", "==", user.uuid),
         where('expense_date', ">=", firstDay),
         where('expense_date', "<=", lastDay),
         where('state', "==", true)

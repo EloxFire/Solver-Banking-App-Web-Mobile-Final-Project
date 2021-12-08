@@ -10,8 +10,8 @@ export function balanceCalculator(expensesArray: Array, incomesArray: Array){
   // console.log("Total balance :", balance);
 
   if(totalIncomes > totalExpenses){
-    return `+ ${Math.round(balance * 100)/100}`;
+    return `+${Math.round(balance * 100)/100}`;
   }else{
-    return `- ${Math.round(balance * 100)/100}`;
+    return `${Math.round(balance * 100)/100}`;
   }
 }

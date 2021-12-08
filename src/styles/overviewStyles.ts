@@ -66,7 +66,7 @@ export const overviewStyles = {
     fontFamily: 'MontserratBold',
   },
   handleExpensesContainer:{
-    marginTop: 50,
+    marginTop: 10,
   },
   handleExpensesTitle:{
     fontSize: 20,

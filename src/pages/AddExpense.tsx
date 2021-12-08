@@ -16,10 +16,14 @@ export default function AddExpense({ navigation }: any){
 
   const addOperation = () => {
     let categories = operationCategories.split(',');
+    let formatedOperationAmount;
+    if(operationAmount.includes(",")){
+      formatedOperationAmount = operationAmount.replace(',', '.');
+    }
 
     const db = getFirestore();
-    addDoc(collection(db, "cities"), {
-      expense_amount: parseInt(operationAmount),
+    addDoc(collection(db, "expenses"), {
+      expense_amount: parseFloat(formatedOperationAmount),
       expensesCategories: categories,
       expense_date: new Date(),
       market_name: operationName,

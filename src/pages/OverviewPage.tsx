@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 import { commonStyles } from '../styles/commonStyles';
 import { overviewStyles } from '../styles/overviewStyles';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, doc, getDocs, collection, query, where } from "firebase/firestore";
+import { getFirestore, doc, getDocs, collection, query, where, orderBy, limit } from "firebase/firestore";
 import { red } from '../styles/variables';
 import ExpensesLite from '../components/ExpenseLite';
 import HandleExpenseButton from '../components/HandleExpenseButton';
@@ -45,7 +45,9 @@ export default function OverviewPage({ navigation } : any) {
 
     //GET ALL OPERATIONS REGISTERED
     const q1 = query(expenseRef,
-      where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3")
+      where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"),
+      orderBy("expense_date", "desc"),
+      limit(4)
     );
     // GET CURRENT MONTH EXPENSES
     const q2 = query(expenseRef,
@@ -94,7 +96,7 @@ export default function OverviewPage({ navigation } : any) {
       const amounts = data.map((item, index) => {
         return item.expense_amount;
       })
-      console.log("Incomes :", amounts);
+      // console.log("Incomes :", amounts);
       setMonthlyIncomes(amounts);
     });
   }, []);

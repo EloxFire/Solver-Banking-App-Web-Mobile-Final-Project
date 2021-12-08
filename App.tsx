@@ -16,6 +16,7 @@ import SigninPage from './src/pages/SigninPage';
 import SignupPage from './src/pages/SignupPage';
 import AddExpense from './src/pages/AddExpense';
 import OverviewPage from './src/pages/OverviewPage';
+import OperationList from './src/pages/OperationList';
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +50,7 @@ export default function App() {
           <Stack.Screen name="SignUp" component={SignupPage} />
           <Stack.Screen name="Overview" component={OverviewPage} />
           <Stack.Screen name="AddExpense" component={AddExpense} />
+          <Stack.Screen name="OperationList" component={OperationList} />
         </Stack.Navigator>
         <Navbar
           profilIconColor={black}

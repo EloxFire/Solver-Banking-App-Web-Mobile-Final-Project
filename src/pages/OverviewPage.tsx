@@ -21,6 +21,7 @@ export default function OverviewPage({ navigation } : any) {
   const monthsList = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 
   useEffect(() => {
+    // USER UUID uid "5pxz72tpraNTsetbb3PXtRXmn6I3"
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if(user){
@@ -34,72 +35,76 @@ export default function OverviewPage({ navigation } : any) {
         })
       }
     });
-
-    const db = getFirestore();
-    const expenseRef = collection(db, 'expenses');
-
-    // For month range
-    let date = new Date(), y = date.getFullYear(), m = date.getMonth();
-    let firstDay = new Date(y, m, 1);
-    let lastDay = new Date(y, m + 1, 0);
-
-    //GET ALL OPERATIONS REGISTERED
-    const q1 = query(expenseRef,
-      where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"),
-      orderBy("expense_date", "desc"),
-      limit(4)
-    );
-    // GET CURRENT MONTH EXPENSES
-    const q2 = query(expenseRef,
-      where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"),
-      where('expense_date', ">=", firstDay),
-      where('expense_date', "<=", lastDay),
-      where('state', "==", false)
-    );
-    // GET CURRENT MONTH INCOMES
-    const q3 = query(expenseRef,
-      where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"),
-      where('expense_date', ">=", firstDay),
-      where('expense_date', "<=", lastDay),
-      where('state', "==", true)
-    );
-
-    getDocs(q1)
-    .then((response) => {
-      const data = response.docs.map((doc, index) => {
-        return doc.data();
-      });
-      // console.log(data);
-      setUserExpenses(data);
-    });
-
-    // Getting user current month total amount
-    getDocs(q2)
-    .then((response) => {
-      const data = response.docs.map((doc, index) => {
-        return doc.data();
-      });
-      // console.log(data);
-      const amounts = data.map((item, index) => {
-        return item.expense_amount;
-      })
-      // console.log("Expenses :", amounts);
-      setMonthlyExpenses(amounts);
-    });
-
-    // Getting user current month total amount
-    getDocs(q3)
-    .then((response) => {
-      const data = response.docs.map((doc, index) => {
-        return doc.data();
-      });
-      const amounts = data.map((item, index) => {
-        return item.expense_amount;
-      })
-      // console.log("Incomes :", amounts);
-      setMonthlyIncomes(amounts);
-    });
   }, []);
+
+  useEffect(() => {
+    if(user !== undefined){
+      const db = getFirestore();
+      const expenseRef = collection(db, 'expenses');
+
+      // For month range
+      let date = new Date(), y = date.getFullYear(), m = date.getMonth();
+      let firstDay = new Date(y, m, 1);
+      let lastDay = new Date(y, m + 1, 0);
+
+      //GET ALL OPERATIONS REGISTERED
+      const q1 = query(expenseRef,
+        where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"),
+        orderBy("expense_date", "desc"),
+        limit(4)
+      );
+      // GET CURRENT MONTH EXPENSES
+      const q2 = query(expenseRef,
+        where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"),
+        where('expense_date', ">=", firstDay),
+        where('expense_date', "<=", lastDay),
+        where('state', "==", false)
+      );
+      // GET CURRENT MONTH INCOMES
+      const q3 = query(expenseRef,
+        where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"),
+        where('expense_date', ">=", firstDay),
+        where('expense_date', "<=", lastDay),
+        where('state', "==", true)
+      );
+
+      getDocs(q1)
+      .then((response) => {
+        const data = response.docs.map((doc, index) => {
+          return doc.data();
+        });
+        // console.log(data);
+        setUserExpenses(data);
+      });
+
+      // Getting user current month total amount
+      getDocs(q2)
+      .then((response) => {
+        const data = response.docs.map((doc, index) => {
+          return doc.data();
+        });
+        // console.log(data);
+        const amounts = data.map((item, index) => {
+          return item.expense_amount;
+        })
+        // console.log("Expenses :", amounts);
+        setMonthlyExpenses(amounts);
+      });
+
+      // Getting user current month total amount
+      getDocs(q3)
+      .then((response) => {
+        const data = response.docs.map((doc, index) => {
+          return doc.data();
+        });
+        const amounts = data.map((item, index) => {
+          return item.expense_amount;
+        })
+        // console.log("Incomes :", amounts);
+        setMonthlyIncomes(amounts);
+      });
+    }
+  }, [user]);
 
   useEffect(() => {
     // CALCULATING TOTAL BALANCE
@@ -147,7 +152,9 @@ export default function OverviewPage({ navigation } : any) {
       </View>
 
       <View style={overviewStyles.seeMoreContainer}>
-        <Text style={overviewStyles.seeMoreText}>Voir plus ></Text>
+        <TouchableOpacity onPress={() => navigation.navigate('OperationList')}>
+          <Text style={overviewStyles.seeMoreText}>Voir plus ></Text>
+        </TouchableOpacity>
       </View>
 
       <View style={overviewStyles.handleExpensesContainer}>

@@ -8,6 +8,11 @@ export const commonStyles = {
     paddingLeft: 20,
     paddingRight: 20
   },
+  title:{
+    fontSize: 40,
+    fontFamily: 'MontserratBold',
+    color: black,
+  },
   button:{
     backgroundColor: red,
     borderRadius: 10,

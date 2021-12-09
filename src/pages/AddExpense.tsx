@@ -4,6 +4,7 @@ import { commonStyles } from '../styles/commonStyles';
 import { addExpenseStyle } from '../styles/addExpensesStyles';
 import CustomFormInput from '../components/CustomFormInput';
 import { collection, addDoc, getFirestore } from "firebase/firestore";
+import { getAuth } from 'firebase/auth';
 // import DatePicker from 'react-native-date-picker';
 
 export default function AddExpense({ navigation }: any){
@@ -14,15 +15,22 @@ export default function AddExpense({ navigation }: any){
   const [operationDate, setOperationDate] = useState(new Date());
   const [operationDateModalOpened, setOperationDateModalOpened] = useState(false);
 
-  useEffect(() => {
-    console.log("MOUNT ADD EXPENSE");
-
-    return function cleanup(){
-      console.log("UNMOUNT ADD EXPENSE");
-    }
-  }, []);
+  let uid;
+  // useEffect(() => {
+  //   console.log("MOUNT ADD EXPENSE");
+  //   // const auth = getAuth();
+  //   // const user = auth.currentUser;
+  //   // if (user !== null) {
+  //   //   uid = user.uid;
+  //   // }
+  //
+  //   return () => {
+  //     console.log("UNMOUNT ADDEXPENSE");
+  //   }
+  // }, []);
 
   const addOperation = () => {
+    console.log(uid);
     let categories = operationCategories.split(',');
     let formatedOperationAmount;
     if(operationAmount.includes(",")){
@@ -30,17 +38,17 @@ export default function AddExpense({ navigation }: any){
     }
 
     const db = getFirestore();
-    addDoc(collection(db, "expenses"), {
-      expense_amount: parseFloat(formatedOperationAmount),
-      expensesCategories: categories,
-      expense_date: new Date(),
-      market_name: operationName,
-      state: false,
-      user_uid: '5pxz72tpraNTsetbb3PXtRXmn6I3'
-    })
-    .then((response) => {
-      console.log(response);
-    });
+    // addDoc(collection(db, "expenses"), {
+    //   expense_amount: parseFloat(formatedOperationAmount),
+    //   expensesCategories: categories,
+    //   expense_date: new Date(),
+    //   market_name: operationName,
+    //   state: false,
+    //   user_uid: '5pxz72tpraNTsetbb3PXtRXmn6I3'
+    // })
+    // .then((response) => {
+    //   console.log(response);
+    // });
   }
 
   return(
@@ -59,18 +67,6 @@ export default function AddExpense({ navigation }: any){
         <TouchableOpacity onPress={() => setOperationDateModalOpened(true)} style={commonStyles.datePickerOpenner}>
           <Text style={commonStyles.datePickerOpennerText}>Choisir une heure</Text>
         </TouchableOpacity>
-        {/* <DatePicker //NOT WORKING
-          modal
-          open={operationDateModalOpened}
-          date={operationDate}
-          onConfirm={(date) => {
-            setOperationDateModalOpened(false)
-            setOperationDate(date)
-          }}
-          onCancel={() => {
-            setOperationDateModalOpened(false)
-          }}
-        /> */}
         <TouchableOpacity onPress={() => addOperation()} style={[commonStyles.button, {marginTop: 20}]}>
           <Text style={commonStyles.buttonText}>Ajouter l'operation</Text>
         </TouchableOpacity>

@@ -11,16 +11,18 @@ interface NavbarPropsInterface {
 }
 
 export default function Navbar(props:NavbarPropsInterface){
+
   const navigation = useNavigation();
+
   return(
     <View style={navbarStyles.navbarContainer}>
-      <TouchableOpacity onPress={() => {navigation.navigate("profile")}}>
+      <TouchableOpacity onPress={() => {navigation.navigate("Profile")}}>
         <Icon name="person-outline" type="ionicon" color={props.profilIconColor} size={35}/>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => {navigation.navigate("Overview")}}>
         <Icon name="home" type="material" color={props.homeIconColor} size={40}/>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {navigation.navigate("Statistics")}}>
+      <TouchableOpacity onPress={() => {navigation.navigate("Stats")}}>
         <Icon name="analytics-outline" type="ionicon" color={props.statsIconColor} size={40}/>
       </TouchableOpacity>
     </View>

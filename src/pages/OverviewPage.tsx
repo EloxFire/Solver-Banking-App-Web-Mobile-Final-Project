@@ -21,94 +21,94 @@ export default function OverviewPage({ navigation } : any) {
   const monthsList = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 
   useEffect(() => {
-    console.log("MOUNT OVERVIEW");
-
-    // USER UUID uid "5pxz72tpraNTsetbb3PXtRXmn6I3"
     const auth = getAuth();
-    const firebaseUser = auth.currentUser;
-    if(firebaseUser !== null){
+    const user = auth.currentUser;
+    let displayName, email, photoURL, emailVerified, phone, uid;
+    if (user !== null) {
+      displayName = user.displayName;
+      email = user.email;
+      photoURL = user.photoURL;
+      emailVerified = user.emailVerified;
+      phone = user.phoneNumber;
+      uid = user.uid;
+
       setUser({
-        uuid: firebaseUser.uid,
-        username: firebaseUser.displayName ? firebaseUser.displayName : "",
-        mail: firebaseUser.email,
-        emailVerified: firebaseUser.isEmailVerified,
-        phone: firebaseUser.phoneNumber ? firebaseUser.phoneNumber : "",
+        uuid: uid,
+        username: displayName,
+        mail: email,
+        emailVerified: emailVerified,
+        phone: phone,
       });
     }
+
+    const db = getFirestore();
+    const expenseRef = collection(db, 'expenses');
+
+    // For month range
+    let date = new Date(), y = date.getFullYear(), m = date.getMonth();
+    let firstDay = new Date(y, m, 1);
+    let lastDay = new Date(y, m + 1, 0);
+
+    // console.log('TYPEOF', typeof(user.uuid));
+
+    //GET ALL OPERATIONS REGISTERED
+    const q1 = query(expenseRef,
+      where("user_uid", "==", uid),
+      orderBy("expense_date", "desc"),
+      limit(4)
+    );
+    // GET CURRENT MONTH EXPENSES
+    const q2 = query(expenseRef,
+      where("user_uid", "==", uid),
+      where('expense_date', ">=", firstDay),
+      where('expense_date', "<=", lastDay),
+      where('state', "==", false)
+    );
+
+    // GET CURRENT MONTH INCOMES
+    const q3 = query(expenseRef,
+      where("user_uid", "==", uid),
+      where('expense_date', ">=", firstDay),
+      where('expense_date', "<=", lastDay),
+      where('state', "==", true)
+    );
+
+    getDocs(q1)
+    .then((response) => {
+      const data = response.docs.map((doc, index) => {
+        return doc.data();
+      });
+      // console.log(data);
+      setUserExpenses(data);
+    });
+
+    // Getting user current month total amount
+    getDocs(q2)
+    .then((response) => {
+      const data = response.docs.map((doc, index) => {
+        return doc.data();
+      });
+      // console.log(data);
+      const amounts = data.map((item, index) => {
+        return item.expense_amount;
+      })
+      // console.log("Expenses :", amounts);
+      setMonthlyExpenses(amounts);
+    });
+
+    // Getting user current month total amount
+    getDocs(q3)
+    .then((response) => {
+      const data = response.docs.map((doc, index) => {
+        return doc.data();
+      });
+      const amounts = data.map((item, index) => {
+        return item.expense_amount;
+      })
+      // console.log("Incomes :", amounts);
+      setMonthlyIncomes(amounts);
+    });
   }, []);
-
-  useEffect(() => {
-    console.log("USER before DB CALLS", user);
-    if(user !== undefined){
-      const db = getFirestore();
-      const expenseRef = collection(db, 'expenses');
-
-      // For month range
-      let date = new Date(), y = date.getFullYear(), m = date.getMonth();
-      let firstDay = new Date(y, m, 1);
-      let lastDay = new Date(y, m + 1, 0);
-
-      // console.log('TYPEOF', typeof(user.uuid));
-
-      //GET ALL OPERATIONS REGISTERED
-      const q1 = query(expenseRef,
-        where("user_uid", "==", user.uuid),
-        orderBy("expense_date", "desc"),
-        limit(4)
-      );
-      // GET CURRENT MONTH EXPENSES
-      const q2 = query(expenseRef,
-        where("user_uid", "==", user.uuid),
-        where('expense_date', ">=", firstDay),
-        where('expense_date', "<=", lastDay),
-        where('state', "==", false)
-      );
-
-      // GET CURRENT MONTH INCOMES
-      const q3 = query(expenseRef,
-        where("user_uid", "==", user.uuid),
-        where('expense_date', ">=", firstDay),
-        where('expense_date', "<=", lastDay),
-        where('state', "==", true)
-      );
-
-      getDocs(q1)
-      .then((response) => {
-        const data = response.docs.map((doc, index) => {
-          return doc.data();
-        });
-        // console.log(data);
-        setUserExpenses(data);
-      });
-
-      // Getting user current month total amount
-      getDocs(q2)
-      .then((response) => {
-        const data = response.docs.map((doc, index) => {
-          return doc.data();
-        });
-        // console.log(data);
-        const amounts = data.map((item, index) => {
-          return item.expense_amount;
-        })
-        // console.log("Expenses :", amounts);
-        setMonthlyExpenses(amounts);
-      });
-
-      // Getting user current month total amount
-      getDocs(q3)
-      .then((response) => {
-        const data = response.docs.map((doc, index) => {
-          return doc.data();
-        });
-        const amounts = data.map((item, index) => {
-          return item.expense_amount;
-        })
-        // console.log("Incomes :", amounts);
-        setMonthlyIncomes(amounts);
-      });
-    }
-  }, [user]);
 
   useEffect(() => {
     // CALCULATING TOTAL BALANCE

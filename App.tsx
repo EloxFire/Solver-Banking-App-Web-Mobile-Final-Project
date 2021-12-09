@@ -7,7 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from './firebaseConfig';
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, getFirestore } from "firebase/firestore";
 import { red, black, white, green } from './src/styles/variables';
 import * as LocalAuthentication from 'expo-local-authentication';
 
@@ -19,6 +19,7 @@ import SignupPage from './src/pages/SignupPage';
 import AddExpense from './src/pages/AddExpense';
 import OverviewPage from './src/pages/OverviewPage';
 import OperationList from './src/pages/OperationList';
+import StatisticsPage from './src/pages/StatisticsPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,11 +37,16 @@ export default function App() {
       setIsBiometricSupported(compatible);
     })();
 
-    handleBiometricAuth();
+    // handleBiometricAuth();
   });
 
   useEffect(() => {
     const app = initializeApp(firebaseConfig);
+
+    // const db = getFirestore();
+    // const unsub = onSnapshot(doc(db, 'expenses'), (document) => {
+    //   console.log("Current data: ", doc.data());
+    // });
   }, []);
 
 
@@ -63,22 +69,21 @@ export default function App() {
   }
 
   return (
-    <Fragment>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="SignIn" component={SigninPage} />
-          <Stack.Screen name="SignUp" component={SignupPage} />
-          <Stack.Screen name="Overview" component={OverviewPage} />
-          <Stack.Screen name="AddExpense" component={AddExpense} />
-          <Stack.Screen name="OperationList" component={OperationList} />
-        </Stack.Navigator>
-        <Navbar
-          profilIconColor={black}
-          homeIconColor={black}
-          statsIconColor={black}
-        />
-      </NavigationContainer>
-    </Fragment>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="SignIn" component={SigninPage} />
+        <Stack.Screen name="SignUp" component={SignupPage} />
+        <Stack.Screen name="AddExpense" component={AddExpense} />
+        <Stack.Screen name="OperationList" component={OperationList} />
+        <Stack.Screen name="Overview" component={OverviewPage} />
+        <Stack.Screen name="Stats" component={StatisticsPage} />
+      </Stack.Navigator>
+      <Navbar
+        profilIconColor={black}
+        homeIconColor={black}
+        statsIconColor={black}
+      />
+    </NavigationContainer>
   );
 }

@@ -5,9 +5,8 @@ import { addExpenseStyle } from '../styles/addExpensesStyles';
 import CustomFormInput from '../components/CustomFormInput';
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { getAuth } from 'firebase/auth';
-// import DatePicker from 'react-native-date-picker';
 
-export default function AddExpense({ navigation }: any){
+export default function AddExpense(){
 
   const [operationName, setOperationName] = useState("");
   const [operationAmount, setOperationAmount] = useState("");
@@ -15,22 +14,21 @@ export default function AddExpense({ navigation }: any){
   const [operationDate, setOperationDate] = useState(new Date());
   const [operationDateModalOpened, setOperationDateModalOpened] = useState(false);
 
-  let uid;
-  // useEffect(() => {
-  //   console.log("MOUNT ADD EXPENSE");
-  //   // const auth = getAuth();
-  //   // const user = auth.currentUser;
-  //   // if (user !== null) {
-  //   //   uid = user.uid;
-  //   // }
-  //
-  //   return () => {
-  //     console.log("UNMOUNT ADDEXPENSE");
-  //   }
-  // }, []);
+  const [addFeedback, setAddFeedback] = useState("");
+
+  useEffect(() => {
+    console.log("MOUNTING ADDEXPENSE");
+    // console.log(navigation);
+
+    return () => {
+      console.log("UNMOUNTING ADDEXPENSE");
+    }
+  });
 
   const addOperation = () => {
-    console.log(uid);
+    const auth = getAuth();
+    const user = auth.currentUser;
+
     let categories = operationCategories.split(',');
     let formatedOperationAmount;
     if(operationAmount.includes(",")){
@@ -38,17 +36,25 @@ export default function AddExpense({ navigation }: any){
     }
 
     const db = getFirestore();
-    // addDoc(collection(db, "expenses"), {
-    //   expense_amount: parseFloat(formatedOperationAmount),
-    //   expensesCategories: categories,
-    //   expense_date: new Date(),
-    //   market_name: operationName,
-    //   state: false,
-    //   user_uid: '5pxz72tpraNTsetbb3PXtRXmn6I3'
-    // })
-    // .then((response) => {
-    //   console.log(response);
-    // });
+    addDoc(collection(db, "expenses"), {
+      expense_amount: parseFloat(formatedOperationAmount),
+      expensesCategories: categories,
+      expense_date: new Date(),
+      market_name: operationName,
+      state: false,
+      user_uid: user.uid,
+    })
+    .then((response) => {
+      if(response){
+        setAddFeedback("Opération ajoutée");
+        setInterval(() => {
+          setAddFeedback("");
+        }, 4000);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   return(
@@ -70,7 +76,7 @@ export default function AddExpense({ navigation }: any){
         <TouchableOpacity onPress={() => addOperation()} style={[commonStyles.button, {marginTop: 20}]}>
           <Text style={commonStyles.buttonText}>Ajouter l'operation</Text>
         </TouchableOpacity>
-
+        <Text style={commonStyles.successText}>{addFeedback}</Text>
       </View>
     </View>
   )

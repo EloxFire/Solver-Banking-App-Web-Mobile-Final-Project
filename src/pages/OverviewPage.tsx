@@ -41,6 +41,8 @@ export default function OverviewPage({ navigation } : any) {
       });
     }
 
+    uid = "5pxz72tpraNTsetbb3PXtRXmn6I3";
+
     const db = getFirestore();
     const expenseRef = collection(db, 'expenses');
 
@@ -111,6 +113,14 @@ export default function OverviewPage({ navigation } : any) {
   }, []);
 
   useEffect(() => {
+    console.log("MOUNTING OVERVIEW");
+
+    return () => {
+      console.log("UNMOUNTING OVERVIEW");
+    }
+  })
+
+  useEffect(() => {
     // CALCULATING TOTAL BALANCE
     setBalance(balanceCalculator(monthlyExpenses, monthlyIncomes))
   }, [monthlyExpenses, monthlyIncomes]);
@@ -133,7 +143,7 @@ export default function OverviewPage({ navigation } : any) {
           userExpenses.length === 0 ?
           <View style={overviewStyles.addExpenseContainer}>
             <Text style={overviewStyles.noExpensesText}>Aucune dépense enregistrée.</Text>
-            <TouchableOpacity onPress={() => navigator.navigate("AddExpense")} style={overviewStyles.addExpenseTextButton}>
+            <TouchableOpacity onPress={() => navigation.navigate("AddExpense")} style={overviewStyles.addExpenseTextButton}>
               <Icon name="add-outline" type="ionicon" color={red}/>
               <Text style={overviewStyles.addExpenseText}>Ajouter une dépense</Text>
             </TouchableOpacity>
@@ -165,9 +175,9 @@ export default function OverviewPage({ navigation } : any) {
         <Text style={overviewStyles.handleExpensesTitle}><Text style={commonStyles.redSpan}>G</Text>érer les dépenses :</Text>
 
         <View style={overviewStyles.handleExpensesChoisesContainer}>
-          <HandleExpenseButton icon="trash-outline" route="AddExpense"/>
+          <HandleExpenseButton icon="trash-outline" route="Test"/>
           <HandleExpenseButton icon="add-outline" route="AddExpense"/>
-          <HandleExpenseButton icon="share-social-outline" route="AddExpense"/>
+          <HandleExpenseButton icon="share-social-outline" route="Stats"/>
         </View>
       </View>
     </View>

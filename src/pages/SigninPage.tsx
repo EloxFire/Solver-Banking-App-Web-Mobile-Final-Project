@@ -20,20 +20,25 @@ export default function SigninPage({ navigation }: any) {
     signInWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
       // Signed in
+      console.log("User successfully");
       setSuccessfullLoginFeedback("Connexion réussie !");
-      setInterval(() => {
-        setSuccessfullLoginFeedback("");
-        navigation.navigate("Overview");
-      }, 1500);
+      navigation.navigate("Overview");
+      // setInterval(() => {
+      //   console.log("SIGNED IN INTERVAL");
+      //
+      //   setSuccessfullLoginFeedback("");
+      //   navigation.navigate("Overview");
+      // }, 1500);
     })
     .catch((error) => {
-      const errorCode = error.code;
       const errorMessage = error.message;
-
+      console.log(`Erreur de connexion | ${errorMessage}`);
       setUnsuccessfullLoginFeedback(`Erreur | ${errorMessage}`);
-      setInterval(() => {
-        setUnsuccessfullLoginFeedback("");
-      }, 8000);
+      // setInterval(() => {
+      //   console.log("SIGNIN ERROR INTERVAL");
+      //
+      //   setUnsuccessfullLoginFeedback("");
+      // }, 8000);
     });
   }
 
@@ -42,10 +47,10 @@ export default function SigninPage({ navigation }: any) {
       <Text style={signinPageStyles.title}><Text style={commonStyles.redSpan}>C</Text>onnexion</Text>
 
       <View style={signinPageStyles.signinFormContainer}>
-        <CustomFormInput onChangeText={text => setUsername(text)} label="Nom d'utilisateur (email)" placeholder="Votre nom d'utilisateur (email)"/>
-        <CustomFormInput onChangeText={pass => setPassword(pass)} secureTextEntry label="Mot de passe" placeholder="Votre mot de passe" />
+        <CustomFormInput onChangeText={(text) => setUsername(text)} label="Nom d'utilisateur (email)" placeholder="Votre nom d'utilisateur (email)"/>
+        <CustomFormInput onChangeText={(pass) => setPassword(pass)} secureTextEntry label="Mot de passe" placeholder="Votre mot de passe" />
       </View>
-      <TouchableOpacity onPress={loginUser} style={[commonStyles.button, {backgroundColor: red}]}>
+      <TouchableOpacity onPress={() => loginUser()} style={[commonStyles.button, {backgroundColor: red}]}>
         <Text style={[commonStyles.buttonText, {color: white}]}>Connexion</Text>
       </TouchableOpacity>
       {

@@ -71,19 +71,19 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Login" component={LoginScreen} />
+        {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
         <Stack.Screen name="SignIn" component={SigninPage} />
-        <Stack.Screen name="SignUp" component={SignupPage} />
-        <Stack.Screen name="AddExpense" component={AddExpense} />
-        <Stack.Screen name="OperationList" component={OperationList} />
+        {/* <Stack.Screen name="SignUp" component={SignupPage} /> */}
         <Stack.Screen name="Overview" component={OverviewPage} />
+        <Stack.Screen name="OperationList" component={OperationList} />
+        <Stack.Screen name="AddExpense" component={AddExpense} />
         <Stack.Screen name="Stats" component={StatisticsPage} />
       </Stack.Navigator>
-      <Navbar
+      {/* <Navbar
         profilIconColor={black}
         homeIconColor={black}
         statsIconColor={black}
-      />
+      /> */}
     </NavigationContainer>
   );
 }

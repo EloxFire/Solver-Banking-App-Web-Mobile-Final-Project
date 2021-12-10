@@ -5,14 +5,15 @@ import { commonStyles } from '../styles/commonStyles';
 
 interface CustomFormInputInterface extends TextInputProps {
   label: string,
+  width: string,
 }
 
 export default function CustomFormInput(props:CustomFormInputInterface){
   const {label, ...rest} = props;
   return(
-    <View>
+    <View style={{width: props.width ? props.width : "100%"}}>
       <Text style={commonStyles.textLabel}>{label}</Text>
-      <TextInput style={commonStyles.textInput} placeholder={props.placeholder} {...rest}
+      <TextInput clearButtonMode="never" style={commonStyles.textInput} placeholder={props.placeholder} {...rest}
       />
     </View>
   )

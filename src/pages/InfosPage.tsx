@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import { View, Text } from 'react-native';
 import { commonStyles } from '../styles/commonStyles';
 import { infosPageStyles } from '../styles/infosPageStyles';
+import { getFirestore, doc, getDocs, collection, query, where } from "firebase/firestore";
+import { appVersion } from '../utils/consts';
 import * as Device from 'expo-device';
 import * as Battery from 'expo-battery';
 
@@ -26,7 +28,12 @@ export default function StatisticsPage({ navigation } : any){
         break;
       }
     });
-  }, [])
+  }, []);
+
+  useEffect(() => {
+
+  }, []);
+
 
 
   return(
@@ -45,12 +52,12 @@ export default function StatisticsPage({ navigation } : any){
       </View>
 
       <View style={infosPageStyles.applicationInfosContainer}>
-        <Text style={infosPageStyles.applicationInfosTitle}>Informations sur l'application :</Text>
-        <Text style={infosPageStyles.littleAppText}>Version : </Text>
-        <Text style={infosPageStyles.littleAppText}>Version de React Native : </Text>
+        <Text style={infosPageStyles.applicationInfosTitle}><Text style={commonStyles.redSpan}>I</Text>nformations sur l'application :</Text>
+        <Text style={infosPageStyles.littleAppText}>Version : {appVersion}</Text>
         <Text style={infosPageStyles.littleAppText}>Version d'Android : {Device.osName} {Device.osVersion}</Text>
-        <Text style={infosPageStyles.applicationInfosTitle}>Informations sur l'appareil :</Text>
-        <Text style={infosPageStyles.littleAppText}>Niveau de la batterie : {batteryLevel*100}% - {batteryState}</Text>
+
+        <Text style={infosPageStyles.applicationInfosTitle}><Text style={commonStyles.redSpan}>I</Text>nformations sur l'appareil :</Text>
+        <Text style={infosPageStyles.littleAppText}>Niveau de la batterie : {Math.round((batteryLevel*100) * 100)/ 100}% - {batteryState}</Text>
         <Text style={infosPageStyles.littleAppText}>Marque de l'appareil : {Device.manufacturer}</Text>
         <Text style={infosPageStyles.littleAppText}>Modèle de l'appareil : {Device.modelName}</Text>
 

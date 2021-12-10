@@ -24,12 +24,14 @@ export const infosPageStyles = {
   },
   applicationInfosTitle:{
     marginTop: 20,
-    marginBottom: 20,
+    // marginBottom: 5,
     fontFamily: 'MontserratBold',
     fontSize: 20,
     color: black,
   },
   littleAppText:{
     fontFamily: 'MontserratSemiBold',
+    fontSize: 15,
+    marginVertical: 2
   }
 }

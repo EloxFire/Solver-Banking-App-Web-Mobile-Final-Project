@@ -13,8 +13,7 @@ export default function CustomFormInput(props:CustomFormInputInterface){
   return(
     <View style={{width: props.width ? props.width : "100%"}}>
       <Text style={commonStyles.textLabel}>{label}</Text>
-      <TextInput clearButtonMode="never" style={commonStyles.textInput} placeholder={props.placeholder} {...rest}
-      />
+      <TextInput clearButtonMode="always" style={commonStyles.textInput} placeholder={props.placeholder} {...rest} />
     </View>
   )
 }

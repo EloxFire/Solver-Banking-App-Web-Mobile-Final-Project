@@ -67,19 +67,13 @@ export const commonStyles = {
     fontSize: 20,
     textAlign: 'center',
   },
-  datePickerOpenner:{
-    borderRadius: 10,
+  formSelect:{
     borderWidth: 1,
-    height: 35,
-    padding: 2,
-    paddingLeft: 5,
-    paddingRight: 5,
-    marginTop: 2,
-    fontFamily: 'Montserrat',
-    justifyContent: 'center',
-  },
-  datePickerOpennerText:{
-    fontSize: 15,
-    opacity: .5,
+    borderColor: black,
+    borderRadius: 10,
+    color: black,
+    padding: -10,
+    // height:,
+    // marginTop: 20,
   }
 }

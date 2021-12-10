@@ -22,8 +22,8 @@ export default function Navbar(props:NavbarPropsInterface){
       <TouchableOpacity onPress={() => {navigation.navigate("Overview")}}>
         <Icon name="home" type="material" color={props.homeIconColor} size={40}/>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {navigation.navigate("Stats")}}>
-        <Icon name="analytics-outline" type="ionicon" color={props.statsIconColor} size={40}/>
+      <TouchableOpacity onPress={() => {navigation.navigate("Infos")}}>
+        <Icon name="information-circle-outline" type="ionicon" color={props.statsIconColor} size={40}/>
       </TouchableOpacity>
     </View>
   )

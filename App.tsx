@@ -19,7 +19,7 @@ import SignupPage from './src/pages/SignupPage';
 import AddExpense from './src/pages/AddExpense';
 import OverviewPage from './src/pages/OverviewPage';
 import OperationList from './src/pages/OperationList';
-import StatisticsPage from './src/pages/StatisticsPage';
+import InfosPage from './src/pages/InfosPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -77,7 +77,7 @@ export default function App() {
         <Stack.Screen name="Overview" component={OverviewPage} />
         <Stack.Screen name="OperationList" component={OperationList} />
         <Stack.Screen name="AddExpense" component={AddExpense} />
-        <Stack.Screen name="Stats" component={StatisticsPage} />
+        <Stack.Screen name="Infos" component={InfosPage} />
       </Stack.Navigator>
       <Navbar
         profilIconColor={black}

@@ -41,7 +41,7 @@ export default function OverviewPage({ navigation } : any) {
       });
     }
 
-    uid = "5pxz72tpraNTsetbb3PXtRXmn6I3";
+    // uid = "5pxz72tpraNTsetbb3PXtRXmn6I3";
 
     const db = getFirestore();
     const expenseRef = collection(db, 'expenses');

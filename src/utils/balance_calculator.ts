@@ -15,3 +15,9 @@ export function balanceCalculator(expensesArray: Array, incomesArray: Array){
     return `${Math.round(balance * 100)/100}`;
   }
 }
+
+export function addFromArray(array: Array){
+  const total = array.reduce((a, b) => a + b, 0);
+
+  return Math.round(total * 100)/100;
+}

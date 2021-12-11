@@ -29,9 +29,33 @@ export const infosPageStyles = {
     fontSize: 20,
     color: black,
   },
+  applicationInfosContainer:{
+    marginTop: 30,
+  },
   littleAppText:{
     fontFamily: 'MontserratSemiBold',
     fontSize: 15,
     marginVertical: 2
-  }
+  },
+  accountInfoTitle:{
+    marginVertical: 10,
+    fontSize: 20,
+    fontFamily: 'MontserratSemiBold',
+  },
+  accountInfosContainer:{
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  row:{
+    flexDirection: 'row',
+  },
+  accountInfoCard:{
+    width: '50%',
+    marginVertical: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  accountCardText:{
+    fontSize: 15,
+  },
 }

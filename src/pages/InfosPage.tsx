@@ -6,8 +6,11 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, getDocs, collection, query, where } from "firebase/firestore";
 import { appVersion } from '../utils/consts';
 import { addFromArray } from '../utils/balance_calculator';
+import { Icon } from 'react-native-elements';
+import {red, black, white, green} from '../styles/variables';
 import * as Device from 'expo-device';
 import * as Battery from 'expo-battery';
+import * as Application from 'expo-application';
 
 export default function StatisticsPage({ navigation } : any){
   const [batteryLevel, setBatteryLevel] = useState(0.1);
@@ -113,17 +116,70 @@ export default function StatisticsPage({ navigation } : any){
         </View>
       </View>
 
+      <View style={[infosPageStyles.applicationInfosContainer, {marginTop: -5}]}>
+        <Text style={infosPageStyles.accountInfoTitle}><Text style={commonStyles.redSpan}>V</Text>otre compte {user.username} :</Text>
+        <View style={infosPageStyles.accountInfosContainer}>
+          <View style={infosPageStyles.row}>
+            <View style={infosPageStyles.accountInfoCard}>
+              <Icon style={{marginRight:5}} name="person-circle-outline" type="ionicon" color={black}/>
+              <Text style={infosPageStyles.accountCardText}>{user.username}</Text>
+            </View>
+            <View style={infosPageStyles.accountInfoCard}>
+              <Icon style={{marginRight:5}} name="mail-outline" type="ionicon" color={black}/>
+              <Text style={infosPageStyles.accountCardText}>{user.mail}</Text>
+            </View>
+          </View>
+          <View style={infosPageStyles.row}>
+            <View style={infosPageStyles.accountInfoCard}>
+              <Icon style={{marginRight:5}} name="shield-checkmark-outline" type="ionicon" color={black}/>
+              <Text style={infosPageStyles.accountCardText}>{user.emailVerified ? "Oui" : "Non"}</Text>
+            </View>
+            <View style={infosPageStyles.accountInfoCard}>
+              <Icon style={{marginRight:5}} name="call-outline" type="ionicon" color={black}/>
+              <Text style={infosPageStyles.accountCardText}>{user.phone !== null ? user.phone : "N/A"}</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+
       <View style={infosPageStyles.applicationInfosContainer}>
-        <Text style={infosPageStyles.applicationInfosTitle}><Text style={commonStyles.redSpan}>I</Text>nformations sur l'application :</Text>
-        <Text style={infosPageStyles.littleAppText}>Version : {appVersion}</Text>
-        <Text style={infosPageStyles.littleAppText}>Version d'Android : {Device.osName} {Device.osVersion}</Text>
+        <Text style={infosPageStyles.accountInfoTitle}><Text style={commonStyles.redSpan}>V</Text>otre appareil :</Text>
+        <View style={infosPageStyles.accountInfosContainer}>
+          <View style={infosPageStyles.row}>
+            <View style={infosPageStyles.accountInfoCard}>
+              <Icon style={{marginRight:5}} name="phone-portrait-outline" type="ionicon" color={black}/>
+              <Text style={infosPageStyles.accountCardText}>{Device.designName}</Text>
+            </View>
+            <View style={infosPageStyles.accountInfoCard}>
+              <Icon style={{marginRight:5}} name="battery-half-outline" type="ionicon" color={black}/>
+              <Text style={infosPageStyles.accountCardText}>{Math.round((batteryLevel*100) * 100)/ 100}% - {batteryState}</Text>
+            </View>
+          </View>
+          <View style={{width:'100%'}}>
+            <View style={infosPageStyles.accountInfoCard}>
+              <Icon style={{marginRight:5}} name="logo-android" type="ionicon" color={black}/>
+              <Text style={infosPageStyles.accountCardText}>{Device.osName} {Device.osVersion}</Text>
+            </View>
+          </View>
+        </View>
+      </View>
 
-        <Text style={infosPageStyles.applicationInfosTitle}><Text style={commonStyles.redSpan}>I</Text>nformations sur l'appareil :</Text>
-        <Text style={infosPageStyles.littleAppText}>Niveau de la batterie : {Math.round((batteryLevel*100) * 100)/ 100}% - {batteryState}</Text>
-        <Text style={infosPageStyles.littleAppText}>Marque de l'appareil : {Device.manufacturer}</Text>
-        <Text style={infosPageStyles.littleAppText}>Modèle de l'appareil : {Device.modelName}</Text>
-
-
+      <View style={infosPageStyles.applicationInfosContainer}>
+        <Text style={infosPageStyles.accountInfoTitle}><Text style={commonStyles.redSpan}>A</Text>pplication :</Text>
+        <View style={{width:"100%"}}>
+          <View style={infosPageStyles.accountInfoCard}>
+            <Icon style={{marginRight:5}} name="copy-outline" type="ionicon" color={black}/>
+            <Text style={infosPageStyles.accountCardText}>v{appVersion}</Text>
+          </View>
+          <View style={infosPageStyles.accountInfoCard}>
+            <Text style={infosPageStyles.accountCardText}>Made with</Text>
+            <Icon style={{marginHorizontal:5}} name="heart-outline" type="ionicon" color={black}/>
+            <Text style={infosPageStyles.accountCardText}>by <Text style={{fontFamily:'MontserratSemiBold'}}>Enzo Avagliano</Text> and with </Text>
+            <Icon style={{marginLeft:5}} name="logo-react" type="ionicon" color={black}/>
+            <Icon style={{marginLeft:5}} name="logo-firebase" type="ionicon" color={black}/>
+            <Icon style={{marginLeft:5}} name="logo-github" type="ionicon" color={black}/>
+          </View>
+        </View>
       </View>
     </View>
   )

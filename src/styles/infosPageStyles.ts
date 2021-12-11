@@ -10,7 +10,7 @@ export const infosPageStyles = {
     marginTop: 40,
   },
   statsCard:{
-
+    alignItems:'center',
   },
   statTitle:{
     fontFamily: 'MontserratBold',

@@ -48,7 +48,7 @@ export default function AddExpense(){
     const user = auth.currentUser;
 
     let categories = operationCategories.split(', ');
-    let formatedOperationAmount;
+    let formatedOperationAmount = "";
     if(operationAmount.includes(",")){
       formatedOperationAmount = operationAmount.replace(',', '.');
     }
@@ -67,6 +67,9 @@ export default function AddExpense(){
       setAddFeedback("Montant requis !");
       return;
     }
+
+    // console.log("Not parse float :", formatedOperationAmount.toFixed(2));
+    // console.log("Float :", parseFloat(formatedOperationAmount));
 
     const db = getFirestore();
     addDoc(collection(db, "expenses"), {

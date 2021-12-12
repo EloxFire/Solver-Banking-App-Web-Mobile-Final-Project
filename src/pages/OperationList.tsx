@@ -20,7 +20,7 @@ export default function OperationList(){
 
     const q1 = query(expenseRef,
       where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"),
-      orderBy("expense_date", "desc")
+      orderBy("expense_date", "asc")
     );
 
     getDocs(q1)

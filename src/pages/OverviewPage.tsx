@@ -56,7 +56,7 @@ export default function OverviewPage({ navigation } : any) {
     //GET ALL OPERATIONS REGISTERED
     const q1 = query(expenseRef,
       where("user_uid", "==", uid),
-      orderBy("expense_date", "desc"),
+      orderBy("expense_date", "asc"),
       limit(4)
     );
     // GET CURRENT MONTH EXPENSES
@@ -111,14 +111,6 @@ export default function OverviewPage({ navigation } : any) {
       setMonthlyIncomes(amounts);
     });
   }, []);
-
-  useEffect(() => {
-    console.log("MOUNTING OVERVIEW");
-
-    return () => {
-      console.log("UNMOUNTING OVERVIEW");
-    }
-  })
 
   useEffect(() => {
     // CALCULATING TOTAL BALANCE

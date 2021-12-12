@@ -43,6 +43,8 @@ export default function App() {
   useEffect(() => {
     const app = initializeApp(firebaseConfig);
 
+    console.log(parseFloat(722));
+
     // const db = getFirestore();
     // const unsub = onSnapshot(doc(db, 'expenses'), (document) => {
     //   console.log("Current data: ", doc.data());

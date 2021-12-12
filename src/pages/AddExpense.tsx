@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Picker } from 'react-native';
+import { View, Text, TouchableOpacity, Picker, Button } from 'react-native';
 import { commonStyles } from '../styles/commonStyles';
 import { addExpenseStyle } from '../styles/addExpensesStyles';
 import CustomFormInput from '../components/CustomFormInput';
@@ -8,11 +8,9 @@ import { getAuth } from 'firebase/auth';
 import ExpenseLite from '../components/ExpenseLite';
 import { categoriesList, operationTypes } from '../utils/consts';
 import { useNavigation } from '@react-navigation/native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function AddExpense(){
-
-  // console.log((new Date().getMinutes()).toString());
-  // console.log(new Date("1870-12-10").toLocaleDateString('fr-FR'));
 
   const navigation = useNavigation();
 
@@ -20,33 +18,30 @@ export default function AddExpense(){
   const [operationAmount, setOperationAmount] = useState("");
   const [operationCategories, setOperationCategories] = useState("");
   const [operationType, setOperationType] = useState(false);
-  const [operationDay, setOperationDay] = useState(new Date().getDate().toString());
-  const [operationMonth, setOperationMonth] = useState((new Date().getMonth()+1).toString());
-  const [operationYear, setOperationYear] = useState(new Date().getFullYear().toString());
-  const [operationHour, setOperationHour] = useState(new Date().getHours().toString());
-  const [operationMinutes, setOperationMinutes] = useState(new Date().getMinutes().toString());
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
 
   const [addFeedback, setAddFeedback] = useState("");
-
-  // useEffect(() => {
-  //   console.log(new Date(`${operationYear}-${operationMonth}-${operationDay}`).toLocaleDateString('fr-FR').toString());
-  //   // console.log(new Date('2021-12-09').toLocaleDateString('fr-FR').toString());
-  // })
-
-  // const setYear = (year) => {
-  //
-  // }
-  //
-  // const selectType = (type) => {
-  //   if(type === "true" || type === "True"){
-  //     console.log(true);
-  //     setOperationType(true);
-  //   }else if(type === "false" || type === "False"){
-  //     console.log(false);
-  //     setOperationType(false);
-  //   }
-  // }
-
 
   const addOperation = () => {
     const auth = getAuth();
@@ -73,18 +68,11 @@ export default function AddExpense(){
       return;
     }
 
-    // console.log("Amount", parseFloat(formatedOperationAmount));
-    // console.log("Catergory", categories);
-    // console.log("Date", new Date(`${operationYear}-${operationMonth}-${operationDay}`).toLocaleDateString().toString());
-    // console.log("Name", operationName);
-    // console.log("Type", operationType);
-    // console.log("UID", user.uid);
-
     const db = getFirestore();
     addDoc(collection(db, "expenses"), {
       expense_amount: parseFloat(formatedOperationAmount),
       expensesCategories: categories,
-      expense_date: new Date(),
+      expense_date: date,
       market_name: operationName,
       state: false,
       user_uid: user.uid,
@@ -104,53 +92,63 @@ export default function AddExpense(){
       <Text style={addExpenseStyle.title}><Text style={commonStyles.redSpan}>A</Text>jouter une nouvelle opération</Text>
 
       <View>
-
         <CustomFormInput onChangeText={(text) => setOperationName(text)} label="Nom" placeholder="Nom affiché" />
         <CustomFormInput onChangeText={(text) => setOperationAmount(text)} label="Montant" placeholder="Montant en euros"/>
-        {/* <CustomFormInput onChangeText={(text) => setOperationCategories(text)} label="Catégories" placeholder="Liste des catégories spérarées par une ','"/> */}
+
         <Text style={commonStyles.textLabel}>Catégorie</Text>
         <View style={commonStyles.formSelect}>
           <Picker onValueChange={(value) => setOperationCategories(value)}>
             {
               categoriesList.map((cat, index) => {
                 return(
-                  <Picker.Item label={`${cat.logo} ${cat.name}`} value={cat.name} />
+                  <Picker.Item key={index} label={`${cat.logo} ${cat.name}`} value={cat.name} />
                 )
               })
             }
           </Picker>
         </View>
-        {/* <CustomFormInput onChangeText={(type) => selectType(type)} label="Type d'opération" placeholder="Ecrivez 'true' pour un revenu, 'false' pour une dépense"/> */}
+
         <Text style={commonStyles.textLabel}>Type d'opération</Text>
         <View style={commonStyles.formSelect}>
           <Picker onValueChange={(value) => setOperationType(value)}>
             {
               operationTypes.map((type, index) => {
                 return(
-                  <Picker.Item label={`${type.logo} ${type.name}`} value={type.value} />
+                  <Picker.Item key={index} label={`${type.logo} ${type.name}`} value={type.value} />
                 )
               })
             }
           </Picker>
         </View>
-        {/* <View style={addExpenseStyle.dateFormContainer}>
-          <CustomFormInput onChangeText={(text) => setOperationDay(text)} label="Jour" placeholder="09" width="40%"/>
-          <CustomFormInput onChangeText={(text) => setOperationMonth(text)} label="Mois" placeholder="11" width="40%"/>
-          <CustomFormInput onChangeText={(text) => setOperationYear(text)} label="Année" placeholder="2021" width="40%"/>
-        </View> */}
+
+        <View>
+          <Text style={commonStyles.textLabel}>Date de l'opération</Text>
+          <TouchableOpacity onPress={() => showDatepicker()} style={[commonStyles.textInput, {height:30,padding:5}]}>
+            <Text>Choisir une date - {date.toLocaleDateString()}</Text>
+          </TouchableOpacity>
+
+          <Text style={commonStyles.textLabel}>Heure de l'opération</Text>
+          <TouchableOpacity onPress={() => showTimepicker()} style={[commonStyles.textInput, {height:30,padding:5}]}>
+            <Text>Choisir une horaire - {date.toLocaleTimeString().slice(0, -3).replace(":", "h")}</Text>
+          </TouchableOpacity>
+          {
+            show &&
+            <DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="default" onChange={onChange} />
+          }
+        </View>
         <TouchableOpacity onPress={() => addOperation()} style={[commonStyles.button, {marginTop: 20}]}>
           <Text style={commonStyles.buttonText}>Ajouter l'operation</Text>
         </TouchableOpacity>
         <Text style={commonStyles.failureText}>{addFeedback}</Text>
 
 
-        <Text style={{marginBottom: 10, marginTop: 10, fontFamily: 'MontserratSemiBold', fontSize: 20}}> <Text style={commonStyles.redSpan}>A</Text>perçu de l'opération :</Text>
+        <Text style={{marginBottom: 10, fontFamily: 'MontserratSemiBold', fontSize: 20}}> <Text style={commonStyles.redSpan}>A</Text>perçu de l'opération :</Text>
         <View style={{marginHorizontal: -30}}>
           <ExpenseLite
             topBorder
             title={operationName ? operationName : "No name"}
-            date={new Date(`${operationYear}-${operationMonth}-${operationDay}`).toLocaleDateString().toString()}
-            hour={new Date().toLocaleTimeString('fr-FR')}
+            date={date.toLocaleDateString().toString()}
+            hour={date.toLocaleTimeString()}
             amount={operationAmount ? operationAmount : "No amount"}
             state={operationType ? operationType : false}
           />

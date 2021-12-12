@@ -177,7 +177,7 @@ export default function OverviewPage({ navigation } : any) {
         <View style={overviewStyles.handleExpensesChoisesContainer}>
           <HandleExpenseButton icon="trash-outline" route="Test"/>
           <HandleExpenseButton icon="add-outline" route="AddExpense"/>
-          <HandleExpenseButton icon="share-social-outline" route="Stats"/>
+          <HandleExpenseButton icon="share-social-outline" share/>
         </View>
       </View>
     </View>

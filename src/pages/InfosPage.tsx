@@ -60,16 +60,16 @@ export default function StatisticsPage({ navigation } : any){
     }
 
     const db = getFirestore();
-    const expenseRef = collection(db, 'expenses');
+    const expenseRef = collection(db, 'operations');
 
     const q1 = query(expenseRef,
       where("user_uid", "==", uid),
-      where("state", "==", true)
+      where("operation_state", "==", true)
     );
 
     const q2 = query(expenseRef,
       where("user_uid", "==", uid),
-      where("state", "==", false)
+      where("operation_state", "==", false)
     );
 
     getDocs(q1)
@@ -79,7 +79,7 @@ export default function StatisticsPage({ navigation } : any){
       });
       // console.log(data);
       const amounts = data.map((item, index) => {
-        return item.expense_amount;
+        return item.operation_amount;
       })
       // console.log("Expenses :", amounts);
       setIncome(addFromArray(amounts));
@@ -92,7 +92,7 @@ export default function StatisticsPage({ navigation } : any){
       });
       // console.log(data);
       const amounts = data.map((item, index) => {
-        return item.expense_amount;
+        return item.operation_amount;
       })
       // console.log("Expenses :", amounts);
       setExpenses(addFromArray(amounts));

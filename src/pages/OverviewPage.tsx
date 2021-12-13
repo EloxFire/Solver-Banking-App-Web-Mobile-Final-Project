@@ -44,7 +44,7 @@ export default function OverviewPage({ navigation } : any) {
     // uid = "5pxz72tpraNTsetbb3PXtRXmn6I3";
 
     const db = getFirestore();
-    const expenseRef = collection(db, 'operations');
+    const operationsRef = collection(db, 'operations');
 
     // For month range
     let date = new Date(), y = date.getFullYear(), m = date.getMonth();
@@ -56,25 +56,25 @@ export default function OverviewPage({ navigation } : any) {
     // console.log('TYPEOF', typeof(user.uuid));
 
     //GET ALL OPERATIONS REGISTERED
-    const q1 = query(expenseRef,
+    const q1 = query(operationsRef,
       where("user_uid", "==", uid),
       orderBy("operation_date", "asc"),
       limit(4)
     );
     // GET CURRENT MONTH EXPENSES
-    const q2 = query(expenseRef,
+    const q2 = query(operationsRef,
       where("user_uid", "==", uid),
       where('operation_date', ">=", firstDay),
       where('operation_date', "<=", lastDay),
-      where('state', "==", false)
+      where('operation_state', "==", false)
     );
 
     // GET CURRENT MONTH INCOMES
-    const q3 = query(expenseRef,
+    const q3 = query(operationsRef,
       where("user_uid", "==", uid),
       where('operation_date', ">=", firstDay),
       where('operation_date', "<=", lastDay),
-      where('state', "==", true)
+      where('operation_state', "==", true)
     );
 
     getDocs(q1)
@@ -94,7 +94,7 @@ export default function OverviewPage({ navigation } : any) {
       });
       // console.log(data);
       const amounts = data.map((item, index) => {
-        return item.expense_amount;
+        return item.operation_amount;
       })
       // console.log("Expenses :", amounts);
       setMonthlyExpenses(amounts);
@@ -107,7 +107,7 @@ export default function OverviewPage({ navigation } : any) {
         return doc.data();
       });
       const amounts = data.map((item, index) => {
-        return item.expense_amount;
+        return item.operation_amount;
       })
       // console.log("Incomes :", amounts);
       setMonthlyIncomes(amounts);
@@ -149,9 +149,9 @@ export default function OverviewPage({ navigation } : any) {
                 key={`operation-lite-${index}`}
                 topBorder={index === 0 ? true : false}
                 title={operation.operation_name}
-                date={operation.operation_date.toLocaleDateString('fr-FR')}
-                hour={operation.operation_date.toLocaleTimeString('fr-FR')}
-                state={operation.state}
+                date={operation.operation_date.toDate().toLocaleDateString('fr-FR')}
+                hour={operation.operation_date.toDate().toLocaleTimeString('fr-FR')}
+                state={operation.operation_state}
                 amount={operation.operation_amount}
               />
             )
@@ -170,7 +170,7 @@ export default function OverviewPage({ navigation } : any) {
 
         <View style={overviewStyles.handleExpensesChoisesContainer}>
           <HandleExpenseButton icon="trash-outline" route="DeleteOperation"/>
-          <HandleExpenseButton icon="add-outline" route="AddExpense"/>
+          <HandleExpenseButton icon="add-outline" route="AddOperation"/>
           <HandleExpenseButton icon="share-social-outline" share/>
         </View>
       </View>

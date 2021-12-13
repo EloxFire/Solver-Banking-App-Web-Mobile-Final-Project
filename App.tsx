@@ -10,13 +10,14 @@ import { firebaseConfig } from './firebaseConfig';
 import { doc, onSnapshot, getFirestore } from "firebase/firestore";
 import { red, black, white, green } from './src/styles/variables';
 import * as LocalAuthentication from 'expo-local-authentication';
+import 'react-native-get-random-values'; //NEEDED FOR UUIDV4 TO WORK
 
 
 import Navbar from './src/components/Navbar';
 import LoginScreen from './src/pages/LoginScreen';
 import SigninPage from './src/pages/SigninPage';
 import SignupPage from './src/pages/SignupPage';
-import AddExpense from './src/pages/AddExpense';
+import AddOperation from './src/pages/AddOperation';
 import OverviewPage from './src/pages/OverviewPage';
 import OperationList from './src/pages/OperationList';
 import InfosPage from './src/pages/InfosPage';
@@ -79,7 +80,7 @@ export default function App() {
         <Stack.Screen name="SignUp" component={SignupPage} />
         <Stack.Screen name="Overview" component={OverviewPage} />
         <Stack.Screen name="OperationList" component={OperationList} />
-        <Stack.Screen name="AddExpense" component={AddExpense} />
+        <Stack.Screen name="AddOperation" component={AddOperation} />
         <Stack.Screen name="Infos" component={InfosPage} />
         <Stack.Screen name="DeleteOperation" component={DeleteOperation} />
       </Stack.Navigator>

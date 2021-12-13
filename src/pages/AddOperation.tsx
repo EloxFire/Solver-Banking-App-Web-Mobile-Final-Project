@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Picker, Button } from 'react-native';
 import { commonStyles } from '../styles/commonStyles';
 import { addExpenseStyle } from '../styles/addExpensesStyles';
 import CustomFormInput from '../components/CustomFormInput';
-import { collection, addDoc, getFirestore } from "firebase/firestore";
+import { collection, addDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { getAuth } from 'firebase/auth';
 import ExpenseLite from '../components/ExpenseLite';
 import { categoriesList, operationTypes } from '../utils/consts';
@@ -44,7 +44,7 @@ export default function AddExpense(){
 
   const [addFeedback, setAddFeedback] = useState("");
 
-  const addOperation = () => {
+  const addOperation = async () => {
     const auth = getAuth();
     const user = auth.currentUser;
 
@@ -69,27 +69,20 @@ export default function AddExpense(){
       return;
     }
 
-    // console.log("Not parse float :", formatedOperationAmount.toFixed(2));
-    // console.log("Float :", parseFloat(formatedOperationAmount));
-
     const db = getFirestore();
-    addDoc(collection(db, "expenses"), {
+    const docRef = await addDoc(collection(db, "operations"), {
       operation_uid: uuidv4(),
       operation_name: operationName,
       operation_amount: parseFloat(formatedOperationAmount),
       operation_date: date,
-      operation_state: false,
+      operation_state: operationType,
       operation_category: categories,
       user_uid: user.uid,
     })
-    .then((response) => {
-      if(response){
-        navigation.navigate("Overview");
-      }
+
+    updateDoc(docRef, {
+      operation_id: docRef.id
     })
-    .catch((err) => {
-      console.log(err);
-    });
   }
 
   return(
@@ -155,7 +148,7 @@ export default function AddExpense(){
             date={date.toLocaleDateString().toString()}
             hour={date.toLocaleTimeString()}
             amount={operationAmount ? operationAmount : "No amount"}
-            state={operationType ? operationType : false}
+            state={operationType ? true : false}
           />
         </View>
       </View>

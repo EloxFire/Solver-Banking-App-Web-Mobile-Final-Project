@@ -61,13 +61,13 @@ export const categoriesList = [
 
 export const operationTypes = [
   {
-    "name": "Revenu",
-    "value": true,
-    "logo": "📈"
-  },
-  {
     "name": "Dépense",
     "value": false,
     "logo": "📉"
   },
+  {
+    "name": "Revenu",
+    "value": true,
+    "logo": "📈"
+  }
 ]

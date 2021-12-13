@@ -40,9 +40,42 @@ export default function OverviewPage({ navigation } : any) {
         phone: phone,
       });
     }
+  }, []);
 
-    // uid = "5pxz72tpraNTsetbb3PXtRXmn6I3";
+  useEffect(() => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    let uid;
+    if (user !== null) {
+      uid = user.uid;
+    }
 
+    const db = getFirestore();
+    const operationsRef = collection(db, 'operations');
+    //GET ALL OPERATIONS REGISTERED
+    const q1 = query(operationsRef,
+      where("user_uid", "==", uid),
+      orderBy("operation_date", "asc"),
+      limit(4)
+    );
+
+    getDocs(q1)
+    .then((response) => {
+      const data = response.docs.map((doc, index) => {
+        return doc.data();
+      });
+      // console.log(data);
+      setUserOperations(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    let uid;
+    if (user !== null) {
+      uid = user.uid;
+    }
     const db = getFirestore();
     const operationsRef = collection(db, 'operations');
 
@@ -51,16 +84,6 @@ export default function OverviewPage({ navigation } : any) {
     let firstDay = new Date(y, m, 1);
     let lastDay = new Date(y, m + 1, 0);
 
-    // console.log("GETIING OPERATIONS");
-
-    // console.log('TYPEOF', typeof(user.uuid));
-
-    //GET ALL OPERATIONS REGISTERED
-    const q1 = query(operationsRef,
-      where("user_uid", "==", uid),
-      orderBy("operation_date", "asc"),
-      limit(4)
-    );
     // GET CURRENT MONTH EXPENSES
     const q2 = query(operationsRef,
       where("user_uid", "==", uid),
@@ -76,15 +99,6 @@ export default function OverviewPage({ navigation } : any) {
       where('operation_date', "<=", lastDay),
       where('operation_state', "==", true)
     );
-
-    getDocs(q1)
-    .then((response) => {
-      const data = response.docs.map((doc, index) => {
-        return doc.data();
-      });
-      // console.log(data);
-      setUserOperations(data);
-    });
 
     // Getting user current month total amount
     getDocs(q2)

@@ -42,14 +42,11 @@ export default function DeleteOperation({ navigation } : any){
     if (user !== null) {
       uid = user.uid;
     }
-
-    console.log(operationToDelete);
-    console.log(uid);
-
     const db = getFirestore();
     deleteDoc(doc(db, "operations", operationToDelete));
 
-    navigation.navigate("Overview");
+    // console.log("User successfully deleted an operation");
+    navigation.push("Overview");
   }
 
   return(

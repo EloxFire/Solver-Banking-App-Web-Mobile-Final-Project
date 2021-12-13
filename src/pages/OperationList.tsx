@@ -24,9 +24,9 @@ export default function OperationList(){
 
 
     const db = getFirestore();
-    const expenseRef = collection(db, 'operations');
+    const operationsRef = collection(db, 'operations');
 
-    const q1 = query(expenseRef,
+    const q1 = query(operationsRef,
       where("user_uid", "==", uid),
       orderBy("operation_date", "asc")
     );
@@ -50,23 +50,23 @@ export default function OperationList(){
         {
           operationsList.length === 0 ?
           <View style={overviewStyles.addExpenseContainer}>
-            <Text style={overviewStyles.noExpensesText}>Aucune dépense enregistrée.</Text>
-            <TouchableOpacity onPress={() => navigator.navigate("AddExpense")} style={overviewStyles.addExpenseTextButton}>
+            <Text style={overviewStyles.noExpensesText}>Aucune oprération enregistrée.</Text>
+            <TouchableOpacity onPress={() => navigator.navigate("AddOperation")} style={overviewStyles.addExpenseTextButton}>
               <Icon name="add-outline" type="ionicon" color={red}/>
-              <Text style={overviewStyles.addExpenseText}>Ajouter une dépense</Text>
+              <Text style={overviewStyles.addExpenseText}>Ajouter une opération</Text>
             </TouchableOpacity>
           </View>
           :
-          operationsList.map((expense, index) => {
+          operationsList.map((operation, index) => {
             return(
               <ExpensesLite
-                key={`expense-lite-${index}`}
+                key={`operation-lite-${index}`}
                 topBorder={index === 0 ? true : false}
-                title={expense.market_name}
-                date={expense.expense_date.toDate().toLocaleDateString('fr-FR')}
-                hour={expense.expense_date.toDate().toLocaleTimeString('fr-FR')}
-                state={expense.state}
-                amount={expense.expense_amount}
+                title={operation.operation_name}
+                date={operation.operation_date.toDate().toLocaleDateString('fr-FR')}
+                hour={operation.operation_date.toDate().toLocaleTimeString('fr-FR')}
+                state={operation.operation_state}
+                amount={operation.operation_amount}
               />
             )
           })

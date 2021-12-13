@@ -83,6 +83,8 @@ export default function AddExpense(){
     updateDoc(docRef, {
       operation_id: docRef.id
     })
+
+    navigation.push("Overview");
   }
 
   return(

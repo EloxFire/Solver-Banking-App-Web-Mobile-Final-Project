@@ -67,7 +67,7 @@ export default function DeleteOperation({ navigation } : any){
           </Picker>
         </View>
         <TouchableOpacity onPress={() => deleteOperation()} style={[commonStyles.button, {marginTop: 20}]}>
-          <Text style={commonStyles.buttonText}>Suppriemer l'operation</Text>
+          <Text style={commonStyles.buttonText}>Supprimer l'operation</Text>
         </TouchableOpacity>
       </View>
     </View>

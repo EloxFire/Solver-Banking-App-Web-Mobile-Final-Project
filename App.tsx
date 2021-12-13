@@ -22,6 +22,7 @@ import OverviewPage from './src/pages/OverviewPage';
 import OperationList from './src/pages/OperationList';
 import InfosPage from './src/pages/InfosPage';
 import DeleteOperation from './src/pages/DeleteOperation';
+import ProfilePage from './src/pages/ProfilePage';
 
 const Stack = createNativeStackNavigator();
 
@@ -83,6 +84,7 @@ export default function App() {
         <Stack.Screen name="AddOperation" component={AddOperation} />
         <Stack.Screen name="Infos" component={InfosPage} />
         <Stack.Screen name="DeleteOperation" component={DeleteOperation} />
+        <Stack.Screen name="Profile" component={ProfilePage} />
       </Stack.Navigator>
       <Navbar
         profilIconColor={black}

@@ -13,7 +13,7 @@ import { balanceCalculator } from '../utils/balance_calculator';
 export default function OverviewPage({ navigation } : any) {
 
   const [user, setUser] = useState({});
-  const [userExpenses, setUserExpenses] = useState([]);
+  const [userOperations, setUserOperations] = useState([]);
   const [monthlyExpenses, setMonthlyExpenses] = useState([]);
   const [monthlyIncomes, setMonthlyIncomes] = useState([]);
   const [balance, setBalance] = useState("0");
@@ -44,36 +44,36 @@ export default function OverviewPage({ navigation } : any) {
     // uid = "5pxz72tpraNTsetbb3PXtRXmn6I3";
 
     const db = getFirestore();
-    const expenseRef = collection(db, 'expenses');
+    const expenseRef = collection(db, 'operations');
 
     // For month range
     let date = new Date(), y = date.getFullYear(), m = date.getMonth();
     let firstDay = new Date(y, m, 1);
     let lastDay = new Date(y, m + 1, 0);
 
-    console.log("GETIING OPERATIONS");
+    // console.log("GETIING OPERATIONS");
 
     // console.log('TYPEOF', typeof(user.uuid));
 
     //GET ALL OPERATIONS REGISTERED
     const q1 = query(expenseRef,
       where("user_uid", "==", uid),
-      orderBy("expense_date", "asc"),
+      orderBy("operation_date", "asc"),
       limit(4)
     );
     // GET CURRENT MONTH EXPENSES
     const q2 = query(expenseRef,
       where("user_uid", "==", uid),
-      where('expense_date', ">=", firstDay),
-      where('expense_date', "<=", lastDay),
+      where('operation_date', ">=", firstDay),
+      where('operation_date', "<=", lastDay),
       where('state', "==", false)
     );
 
     // GET CURRENT MONTH INCOMES
     const q3 = query(expenseRef,
       where("user_uid", "==", uid),
-      where('expense_date', ">=", firstDay),
-      where('expense_date', "<=", lastDay),
+      where('operation_date', ">=", firstDay),
+      where('operation_date', "<=", lastDay),
       where('state', "==", true)
     );
 
@@ -83,7 +83,7 @@ export default function OverviewPage({ navigation } : any) {
         return doc.data();
       });
       // console.log(data);
-      setUserExpenses(data);
+      setUserOperations(data);
     });
 
     // Getting user current month total amount
@@ -134,25 +134,25 @@ export default function OverviewPage({ navigation } : any) {
         <Text style={overviewStyles.exepensesContainerTitle}><Text style={commonStyles.redSpan}>A</Text>perçu rapide</Text>
 
         {
-          userExpenses.length === 0 ?
+          userOperations.length === 0 ?
           <View style={overviewStyles.addExpenseContainer}>
-            <Text style={overviewStyles.noExpensesText}>Aucune dépense enregistrée.</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("AddExpense")} style={overviewStyles.addExpenseTextButton}>
+            <Text style={overviewStyles.noExpensesText}>Aucune opération enregistrée.</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("AddOperation")} style={overviewStyles.addExpenseTextButton}>
               <Icon name="add-outline" type="ionicon" color={red}/>
-              <Text style={overviewStyles.addExpenseText}>Ajouter une dépense</Text>
+              <Text style={overviewStyles.addExpenseText}>Ajouter une opération</Text>
             </TouchableOpacity>
           </View>
           :
-          userExpenses.map((expense, index) => {
+          userOperations.map((operation, index) => {
             return(
               <ExpensesLite
-                key={`expense-lite-${index}`}
+                key={`operation-lite-${index}`}
                 topBorder={index === 0 ? true : false}
-                title={expense.market_name}
-                date={expense.expense_date.toDate().toLocaleDateString('fr-FR')}
-                hour={expense.expense_date.toDate().toLocaleTimeString('fr-FR')}
-                state={expense.state}
-                amount={expense.expense_amount}
+                title={operation.operation_name}
+                date={operation.operation_date.toLocaleDateString('fr-FR')}
+                hour={operation.operation_date.toLocaleTimeString('fr-FR')}
+                state={operation.state}
+                amount={operation.operation_amount}
               />
             )
           })
@@ -166,10 +166,10 @@ export default function OverviewPage({ navigation } : any) {
       </View>
 
       <View style={overviewStyles.handleExpensesContainer}>
-        <Text style={overviewStyles.handleExpensesTitle}><Text style={commonStyles.redSpan}>G</Text>érer les dépenses :</Text>
+        <Text style={overviewStyles.handleExpensesTitle}><Text style={commonStyles.redSpan}>G</Text>érer les opérations :</Text>
 
         <View style={overviewStyles.handleExpensesChoisesContainer}>
-          <HandleExpenseButton icon="trash-outline" route="Test"/>
+          <HandleExpenseButton icon="trash-outline" route="DeleteOperation"/>
           <HandleExpenseButton icon="add-outline" route="AddExpense"/>
           <HandleExpenseButton icon="share-social-outline" share/>
         </View>

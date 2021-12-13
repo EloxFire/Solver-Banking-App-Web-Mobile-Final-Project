@@ -9,6 +9,7 @@ import ExpenseLite from '../components/ExpenseLite';
 import { categoriesList, operationTypes } from '../utils/consts';
 import { useNavigation } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function AddExpense(){
 
@@ -73,11 +74,12 @@ export default function AddExpense(){
 
     const db = getFirestore();
     addDoc(collection(db, "expenses"), {
-      expense_amount: parseFloat(formatedOperationAmount),
-      expensesCategories: categories,
-      expense_date: date,
-      market_name: operationName,
-      state: false,
+      operation_uid: uuidv4(),
+      operation_name: operationName,
+      operation_amount: parseFloat(formatedOperationAmount),
+      operation_date: date,
+      operation_state: false,
+      operation_category: categories,
       user_uid: user.uid,
     })
     .then((response) => {

@@ -117,7 +117,7 @@ export default function StatisticsPage({ navigation } : any){
       </View>
 
       <View style={[infosPageStyles.applicationInfosContainer, {marginTop: -5}]}>
-        <Text style={infosPageStyles.accountInfoTitle}><Text style={commonStyles.redSpan}>V</Text>otre compte {user.username} :</Text>
+        <Text style={infosPageStyles.accountInfoTitle}><Text style={commonStyles.redSpan}>V</Text>otre compte :</Text>
         <View style={infosPageStyles.accountInfosContainer}>
           <View style={infosPageStyles.row}>
             <View style={infosPageStyles.accountInfoCard}>

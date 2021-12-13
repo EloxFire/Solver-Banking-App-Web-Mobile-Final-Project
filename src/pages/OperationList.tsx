@@ -6,6 +6,7 @@ import { operationsListStyles } from '../styles/operationsListStyles'
 import { Icon } from 'react-native-elements';
 import { red } from '../styles/variables';
 import { getFirestore, doc, getDocs, collection, query, where, orderBy } from "firebase/firestore";
+import { getAuth } from 'firebase/auth';
 import ExpensesLite from '../components/ExpenseLite';
 
 
@@ -14,13 +15,20 @@ export default function OperationList(){
   const [operationsList, setOperationList] = useState([]);
 
   useEffect(() => {
-    // console.log("MOUNT LIST");
+    const auth = getAuth();
+    const user = auth.currentUser;
+    let uid;
+    if (user !== null) {
+      uid = user.uid;
+    }
+
+
     const db = getFirestore();
-    const expenseRef = collection(db, 'expenses');
+    const expenseRef = collection(db, 'operations');
 
     const q1 = query(expenseRef,
-      where("user_uid", "==", "5pxz72tpraNTsetbb3PXtRXmn6I3"),
-      orderBy("expense_date", "asc")
+      where("user_uid", "==", uid),
+      orderBy("operation_date", "asc")
     );
 
     getDocs(q1)

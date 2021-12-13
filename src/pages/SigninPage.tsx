@@ -20,7 +20,7 @@ export default function SigninPage({ navigation }: any) {
     signInWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
       // Signed in
-      console.log("User successfully");
+      console.log("User successfully logged in");
       setSuccessfullLoginFeedback("Connexion réussie !");
       navigation.navigate("Overview");
       // setInterval(() => {

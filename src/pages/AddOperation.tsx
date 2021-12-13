@@ -49,14 +49,21 @@ export default function AddExpense(){
     const user = auth.currentUser;
 
     let categories = operationCategories.split(', ');
+    let amount;
+
     let formatedOperationAmount = "";
     if(operationAmount.includes(",")){
       formatedOperationAmount = operationAmount.replace(',', '.');
+      amount = parseFloat(formatedOperationAmount);
+    }else{
+      amount = parseInt(operationAmount);
     }
-
     // BIZZARE MAIS NECESSAIRE....
     if(operationAmount.includes(".")){
       formatedOperationAmount = operationAmount.replace('.', '.');
+      amount = parseFloat(formatedOperationAmount);
+    }else{
+      amount = parseInt(operationAmount);
     }
 
     if(operationName === ""){
@@ -73,7 +80,7 @@ export default function AddExpense(){
     const docRef = await addDoc(collection(db, "operations"), {
       operation_uid: uuidv4(),
       operation_name: operationName,
-      operation_amount: parseFloat(formatedOperationAmount),
+      operation_amount: amount,
       operation_date: date,
       operation_state: operationType,
       operation_category: categories,

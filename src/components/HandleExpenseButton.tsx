@@ -15,10 +15,6 @@ interface HandleExpenseButtonInterface {
 export default function HandleExpenseButton(props:HandleExpenseButtonInterface){
   const navigation = useNavigation();
 
-  useEffect(() => {
-    console.log(navigation);
-  })
-
   const share = () => {
     // Sharing.shareAsync("../utils/test.txt", {dialogTitle: "Test"})
     // .then((response) => {

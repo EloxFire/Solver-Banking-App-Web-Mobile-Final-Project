@@ -14,7 +14,7 @@ export default function OperationList(){
   const [operationsList, setOperationList] = useState([]);
 
   useEffect(() => {
-    console.log("MOUNT LIST");
+    // console.log("MOUNT LIST");
     const db = getFirestore();
     const expenseRef = collection(db, 'expenses');
 

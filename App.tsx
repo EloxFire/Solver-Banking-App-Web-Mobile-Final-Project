@@ -20,6 +20,7 @@ import AddExpense from './src/pages/AddExpense';
 import OverviewPage from './src/pages/OverviewPage';
 import OperationList from './src/pages/OperationList';
 import InfosPage from './src/pages/InfosPage';
+import DeleteOperation from './src/pages/DeleteOperation';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,7 +44,7 @@ export default function App() {
   useEffect(() => {
     const app = initializeApp(firebaseConfig);
 
-    console.log(parseFloat(722));
+    // console.log(parseFloat(722));
 
     // const db = getFirestore();
     // const unsub = onSnapshot(doc(db, 'expenses'), (document) => {
@@ -80,6 +81,7 @@ export default function App() {
         <Stack.Screen name="OperationList" component={OperationList} />
         <Stack.Screen name="AddExpense" component={AddExpense} />
         <Stack.Screen name="Infos" component={InfosPage} />
+        <Stack.Screen name="DeleteOperation" component={DeleteOperation} />
       </Stack.Navigator>
       <Navbar
         profilIconColor={black}

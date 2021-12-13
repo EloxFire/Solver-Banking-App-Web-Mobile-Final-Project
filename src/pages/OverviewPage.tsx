@@ -51,6 +51,8 @@ export default function OverviewPage({ navigation } : any) {
     let firstDay = new Date(y, m, 1);
     let lastDay = new Date(y, m + 1, 0);
 
+    console.log("GETIING OPERATIONS");
+
     // console.log('TYPEOF', typeof(user.uuid));
 
     //GET ALL OPERATIONS REGISTERED

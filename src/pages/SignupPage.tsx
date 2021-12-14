@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import CustomFormInput from '../components/CustomFormInput';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { collection, addDoc, getFirestore, updateDoc } from "firebase/firestore";
 
 
 import {red, black, white, green} from '../styles/variables';
@@ -17,29 +18,41 @@ export default function SignupPage({ navigation }: any) {
   const [successfullRegisterFeedback, setSuccessfullRegisterFeedback] = useState("");
   const [unsuccessfullRegisterFeedback, setUnsuccessfullRegisterFeedback] = useState("");
 
-  const registerUser = () => {
+  const registerUser = async () => {
     if(password !== passwordConfirmation){
       setUnsuccessfullRegisterFeedback("Les mot de passe ne correspondent pas...")
       return;
     }
 
+    const db = getFirestore();
+    const docRef = await addDoc(collection(db, "users"), {
+      user_display_name: fullName,
+      user_mail: username,
+      user_phone: "N/A",
+      user_age: "N/A",
+      user_town: "N/A",
+      created_at: new Date(),
+      updated_at: new Date(),
+    });
+
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
-      updateProfile(userCredential.user, {
-        displayName: fullName
-      });
-    })
-    .then((response) => {
-      console.log("User successfully registed");
+      console.log("USER CREDENTIAL", userCredential);
+      console.log("User successfully registered");
       setSuccessfullRegisterFeedback("Inscription réussie !");
-      navigation.navigate("Overview");
+
+      updateDoc(docRef, {
+        user_auth_id: userCredential.user.uid
+      });
     })
     .catch((error) => {
       const errorMessage = error.message;
       console.log(`Erreur d'inscription | ${errorMessage}`);
       setUnsuccessfullRegisterFeedback(`Erreur | ${errorMessage}`);
     });
+
+    navigation.navigate("Overview");
   }
 
   return (

@@ -22,32 +22,46 @@ export default function OverviewPage({ navigation } : any) {
 
   useEffect(() => {
     const auth = getAuth();
-    const user = auth.currentUser;
-    let displayName, email, photoURL, emailVerified, phone, uid;
-    if (user !== null) {
-      displayName = user.displayName;
-      email = user.email;
-      photoURL = user.photoURL;
-      emailVerified = user.emailVerified;
-      phone = user.phoneNumber;
-      uid = user.uid;
+    const currentUser = auth.currentUser;
+    const db = getFirestore();
+    const usersRef = collection(db, 'users');
 
-      setUser({
-        uuid: uid,
-        username: displayName,
-        mail: email,
-        emailVerified: emailVerified,
-        phone: phone,
+    let uid, emailVerified;
+    if (currentUser !== null) {
+      uid = currentUser.uid;
+      emailVerified = currentUser.emailVerified;
+      const q1 = query(usersRef,
+        where("user_auth_id", "==", uid)
+      );
+
+      getDocs(q1)
+      .then((response) => {
+        const data = response.docs.map((doc, index) => {
+          return doc.data();
+        });
+        console.log("PROFILE GET :", data[0]);
+        setUser({
+          uuid: data[0].user_auth_uid,
+          username: data[0].user_display_name,
+          created_at: data[0].created_at.toDate().toDateString(),
+          updated_at: data[0].updated_at.toDate().toDateString(),
+          mail: data[0].user_mail,
+          emailVerified: emailVerified,
+          phone: data[0].user_phone,
+          age: data[0].user_age,
+          town: data[0].user_town,
+          photoUrl: null,
+        });
       });
     }
   }, []);
 
   useEffect(() => {
     const auth = getAuth();
-    const user = auth.currentUser;
+    const currentUser = auth.currentUser;
     let uid;
-    if (user !== null) {
-      uid = user.uid;
+    if (currentUser !== null) {
+      uid = currentUser.uid;
     }
 
     const db = getFirestore();
@@ -71,10 +85,10 @@ export default function OverviewPage({ navigation } : any) {
 
   useEffect(() => {
     const auth = getAuth();
-    const user = auth.currentUser;
+    const currentUser = auth.currentUser;
     let uid;
-    if (user !== null) {
-      uid = user.uid;
+    if (currentUser !== null) {
+      uid = currentUser.uid;
     }
     const db = getFirestore();
     const operationsRef = collection(db, 'operations');
@@ -135,7 +149,7 @@ export default function OverviewPage({ navigation } : any) {
 
   return (
     <View style={commonStyles.viewStyle}>
-      <Text style={overviewStyles.title}><Text style={commonStyles.redSpan}>B</Text>onjour {user.username} !</Text>
+      <Text style={overviewStyles.title}><Text style={commonStyles.redSpan}>B</Text>onjour {user.username.split(' ')[0]} !</Text>
 
       <View style={overviewStyles.balanceContainer}>
         <View>

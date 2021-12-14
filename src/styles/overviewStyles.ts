@@ -3,7 +3,7 @@ import {red, black, white, green} from './variables';
 export const overviewStyles = {
   title:{
     marginTop: 20,
-    marginBottom: 60,
+    marginBottom: 40,
     fontSize: 40,
     fontFamily: 'MontserratBold',
     color: black,
@@ -25,7 +25,7 @@ export const overviewStyles = {
     color: black,
   },
   expensesContainer:{
-    marginTop: 60,
+    marginTop: 30,
     marginLeft: -30,
     marginRight: -30,
   },

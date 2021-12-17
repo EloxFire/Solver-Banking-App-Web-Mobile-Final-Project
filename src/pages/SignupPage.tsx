@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import CustomFormInput from '../components/CustomFormInput';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile, signOut } from "firebase/auth";
 import { collection, addDoc, getFirestore, updateDoc } from "firebase/firestore";
 
 
@@ -38,13 +38,19 @@ export default function SignupPage({ navigation }: any) {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
-      console.log("USER CREDENTIAL", userCredential);
+      // console.log("USER CREDENTIAL", userCredential);
       console.log("User successfully registered");
       setSuccessfullRegisterFeedback("Inscription réussie !");
 
       updateDoc(docRef, {
-        user_auth_id: userCredential.user.uid
+        user_uuid: userCredential.user.uid
       });
+
+      signOut(auth)
+      .then(() => {
+        navigation.push('Login');
+      });
+      // navigation.push("Overview");
     })
     .catch((error) => {
       const errorMessage = error.message;
@@ -52,7 +58,6 @@ export default function SignupPage({ navigation }: any) {
       setUnsuccessfullRegisterFeedback(`Erreur | ${errorMessage}`);
     });
 
-    navigation.navigate("Overview");
   }
 
   return (

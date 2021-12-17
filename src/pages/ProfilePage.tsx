@@ -10,12 +10,16 @@ import {red, black, white, green} from '../styles/variables';
 export default function ProfilePage({ navigation } : any){
 
   const [user, setUser] = useState({
+    uuid: "Chargement",
     username: "Chargement",
-    mail: "Chargement",
-    emailVerified: false,
-    phone: "Chargement",
-    photoUrl: null,
     created_at: "Chargement",
+    updated_at: "Chargement",
+    mail: "Chargement",
+    emailVerified: "Chargement",
+    phone: "Chargement",
+    age: "Chargement",
+    town: "Chargement",
+    photoUrl: null,
   });
 
   useEffect(() => {
@@ -29,7 +33,7 @@ export default function ProfilePage({ navigation } : any){
       uid = currentUser.uid;
       emailVerified = currentUser.emailVerified;
       const q1 = query(usersRef,
-        where("user_auth_id", "==", uid)
+        where("user_uuid", "==", uid)
       );
 
       getDocs(q1)
@@ -39,12 +43,12 @@ export default function ProfilePage({ navigation } : any){
         });
         console.log("PROFILE GET :", data[0]);
         setUser({
-          uuid: data[0].user_auth_uid,
+          uuid: data[0].user_uuid,
           username: data[0].user_display_name,
           created_at: data[0].created_at.toDate().toDateString(),
           updated_at: data[0].updated_at.toDate().toDateString(),
           mail: data[0].user_mail,
-          emailVerified: emailVerified,
+          emailVerified: data[0].user_mail_verified,
           phone: data[0].user_phone,
           age: data[0].user_age,
           town: data[0].user_town,
@@ -58,10 +62,8 @@ export default function ProfilePage({ navigation } : any){
   const logOut = () => {
     const auth = getAuth();
     signOut(auth).then(() => {
-      // Sign-out successful.
       navigation.navigate('Login');
     }).catch((error) => {
-      // An error happened.
       console.log(error);
     });
   }
@@ -87,11 +89,11 @@ export default function ProfilePage({ navigation } : any){
           <View style={{flexDirection:'row'}}>
             <View style={{flexDirection:'row',marginRight:10}}>
               <Icon name="gift-outline" type="ionicon" color={black} size={18}/>
-              <Text style={{fontSize:18,fontFamily:"MontserratBold"}}>21 ans</Text>
+              <Text style={{fontSize:18,fontFamily:"MontserratBold"}}>{user.age}</Text>
             </View>
             <View style={{flexDirection:'row'}}>
               <Icon name="location-outline" type="ionicon" color={black} size={18}/>
-              <Text style={{fontSize:18,fontFamily:"MontserratBold"}}>Aix en provence</Text>
+              <Text style={{fontSize:18,fontFamily:"MontserratBold"}}>{user.town}</Text>
             </View>
           </View>
           <TouchableOpacity onPress={() => logOut()} style={{flexDirection:'row', marginTop:10}}>

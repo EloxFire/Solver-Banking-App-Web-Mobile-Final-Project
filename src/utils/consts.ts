@@ -1,4 +1,4 @@
-export const appVersion = "1.1.0"
+export const appVersion = "1.8.3"
 
 export const categoriesList = [
   {

@@ -155,7 +155,7 @@ export default function OverviewPage({ navigation } : any) {
 
   return (
     <View style={commonStyles.viewStyle}>
-      <Text>{JSON.stringify(user)}</Text>
+      {/* <Text>{JSON.stringify(user)}</Text> */}
       <Text style={overviewStyles.title}><Text style={commonStyles.redSpan}>B</Text>onjour {user.user_display_name !== undefined ? user.user_display_name.split(' ')[0] : ""} !</Text>
 
       <View style={overviewStyles.balanceContainer}>

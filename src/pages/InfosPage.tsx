@@ -116,33 +116,7 @@ export default function StatisticsPage({ navigation } : any){
         </View>
       </View>
 
-      <View style={[infosPageStyles.applicationInfosContainer, {marginTop: -5}]}>
-        <Text style={infosPageStyles.accountInfoTitle}><Text style={commonStyles.redSpan}>V</Text>otre compte :</Text>
-        <View style={infosPageStyles.accountInfosContainer}>
-          <View style={infosPageStyles.row}>
-            <View style={infosPageStyles.accountInfoCard}>
-              <Icon style={{marginRight:5}} name="person-circle-outline" type="ionicon" color={black}/>
-              <Text style={infosPageStyles.accountCardText}>{user.username}</Text>
-            </View>
-            <View style={infosPageStyles.accountInfoCard}>
-              <Icon style={{marginRight:5}} name="mail-outline" type="ionicon" color={black}/>
-              <Text style={infosPageStyles.accountCardText}>{user.mail}</Text>
-            </View>
-          </View>
-          <View style={infosPageStyles.row}>
-            <View style={infosPageStyles.accountInfoCard}>
-              <Icon style={{marginRight:5}} name="shield-checkmark-outline" type="ionicon" color={black}/>
-              <Text style={infosPageStyles.accountCardText}>{user.emailVerified ? "Oui" : "Non"}</Text>
-            </View>
-            <View style={infosPageStyles.accountInfoCard}>
-              <Icon style={{marginRight:5}} name="call-outline" type="ionicon" color={black}/>
-              <Text style={infosPageStyles.accountCardText}>{user.phone !== null ? user.phone : "N/A"}</Text>
-            </View>
-          </View>
-        </View>
-      </View>
-
-      <View style={infosPageStyles.applicationInfosContainer}>
+      <View style={[infosPageStyles.applicationInfosContainer, {marginTop:-5}]}>
         <Text style={infosPageStyles.accountInfoTitle}><Text style={commonStyles.redSpan}>V</Text>otre appareil :</Text>
         <View style={infosPageStyles.accountInfosContainer}>
           <View style={infosPageStyles.row}>

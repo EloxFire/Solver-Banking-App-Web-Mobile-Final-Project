@@ -89,16 +89,16 @@ export default function ProfilePage({ navigation } : any){
           <View style={{flexDirection:'row'}}>
             <View style={{flexDirection:'row',marginRight:10}}>
               <Icon name="gift-outline" type="ionicon" color={black} size={18}/>
-              <Text style={{fontSize:18,fontFamily:"MontserratBold"}}>{user.age}</Text>
+              <Text style={{fontSize:18,fontFamily:"MontserratBold"}}>{user.age !== "N/A" ? user.age : "N/A"} ans</Text>
             </View>
             <View style={{flexDirection:'row'}}>
               <Icon name="location-outline" type="ionicon" color={black} size={18}/>
-              <Text style={{fontSize:18,fontFamily:"MontserratBold"}}>{user.town}</Text>
+              <Text style={{fontSize:18,fontFamily:"MontserratBold"}}>{user.town !== "N/A" ? user.town : "N/A"}</Text>
             </View>
           </View>
           <TouchableOpacity onPress={() => logOut()} style={{flexDirection:'row', marginTop:10}}>
-            <Icon name="log-out-outline" type="ionicon" size={20}/>
-            <Text style={{fontSize:20}}>Déconnexion</Text>
+            <Icon name="log-out-outline" type="ionicon" size={20} color={red}/>
+            <Text style={[commonStyles.redSpan, {fontSize:20}]}>Déconnexion</Text>
           </TouchableOpacity>
         </View>
       </View>

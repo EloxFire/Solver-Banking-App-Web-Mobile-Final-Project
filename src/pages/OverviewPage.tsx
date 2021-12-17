@@ -74,7 +74,7 @@ export default function OverviewPage({ navigation } : any) {
     //GET ALL OPERATIONS REGISTERED
     const q1 = query(operationsRef,
       where("user_uid", "==", uid),
-      orderBy("operation_date", "asc"),
+      orderBy("operation_date", "desc"),
       limit(4)
     );
 

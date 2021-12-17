@@ -5,7 +5,7 @@ import { getAuth, signOut } from 'firebase/auth';
 import { getFirestore, getDocs, collection, query, where } from "firebase/firestore";
 import { commonStyles } from '../styles/commonStyles';
 import { profilePage } from '../styles/profilePage';
-import {red, black, white, green} from '../styles/variables';
+import {red, black, white, green, orange} from '../styles/variables';
 
 export default function ProfilePage({ navigation } : any){
 
@@ -120,6 +120,17 @@ export default function ProfilePage({ navigation } : any){
           <Icon name="reload-circle-outline" type="ionicon" color={black} size={18}/>
           <Text style={{fontSize:18,marginLeft:5}}>Dernière mise à jour le <Text style={{fontFamily:"MontserratBold"}}>{user.updated_at}</Text></Text>
         </View>
+      </View>
+
+      <View style={{marginTop:30}}>
+        <TouchableOpacity onPress={() => logOut()} style={{flexDirection:'row', marginTop:10}}>
+          <Icon name="trash-outline" type="ionicon" size={20} color={red}/>
+          <Text style={[commonStyles.redSpan, {fontSize:20}]}>Supprimer mon compte</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => logOut()} style={{flexDirection:'row', marginTop:10}}>
+          <Icon name="reload-circle-outline" type="ionicon" size={20} color={orange}/>
+          <Text style={{fontSize:20, color:orange}}>Mettre à jour mes informations</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )

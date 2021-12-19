@@ -90,6 +90,12 @@ Fonctionnalitées principales :
 Bien sur, Solver sera soumise à de nombreuses futures mises à jour, qui auront pour but de toujours améliorer l'application !
 
 
+<p style="color:#fa8231,text-align:center">
+  <img src="https://cdn.discordapp.com/attachments/814250385190420483/922243834551865424/alert-circle-outline.png" width="30" alt="Alter Circle">
+  <strong>Application utilisable uniquement sur android</strong>
+  <img src="https://cdn.discordapp.com/attachments/814250385190420483/922243834551865424/alert-circle-outline.png" width="30" alt="Alter Circle">
+</p>
+
 [![Solver - Banking app][product-screenshot]](https://example.com)
 
 <p align="right">(<a href="#top">haut de page</a>)</p>
@@ -103,6 +109,9 @@ Cette application à été construite avec les technologies suivantes :
 * [React Native](https://reactnative.dev/)
 * [Expo](https://expo.dev/)
 * [Firebase](https://firebase.google.com/)
+
+Composants natifs utilisés :
+
 
 <p align="right">(<a href="#top">haut de page</a>)</p>
 
@@ -246,4 +255,4 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew -->
-[product-screenshot]: https://cdn.discordapp.com/attachments/814250385190420483/922237438666108939/HOMEPAGE.png
+[product-screenshot]: https://cdn.discordapp.com/attachments/814250385190420483/922242799364100146/HOMEPAGE.png

@@ -41,6 +41,9 @@ export default function LoginScreen({ navigation }: any) {
         </View>
         {/* <Text style={commonStyles.forgotPass}>Mot de passe oublié ?</Text> */}
       </View>
+      {/* <View style={{position:'absolute',height:80,bottom: 0,backgroundColor:'rgb(96, 5, 57)'}}>
+        <Text>DDD</Text>
+      </View> */}
     </View>
   );
 }

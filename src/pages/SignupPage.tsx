@@ -35,6 +35,10 @@ export default function SignupPage({ navigation }: any) {
       updated_at: new Date(),
     });
 
+    updateDoc(docRef, {
+      user_ref: docRef.id
+    })
+
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {

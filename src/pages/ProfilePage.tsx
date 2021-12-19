@@ -123,11 +123,11 @@ export default function ProfilePage({ navigation } : any){
       </View>
 
       <View style={{marginTop:30}}>
-        <TouchableOpacity onPress={() => logOut()} style={{flexDirection:'row', marginTop:10}}>
+        <TouchableOpacity onPress={() => navigation.push("AccountDeletion")} style={{flexDirection:'row', marginTop:10}}>
           <Icon name="trash-outline" type="ionicon" size={20} color={red}/>
           <Text style={[commonStyles.redSpan, {fontSize:20}]}>Supprimer mon compte</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => logOut()} style={{flexDirection:'row', marginTop:10}}>
+        <TouchableOpacity onPress={() => navigation.push("AccountUpdate")} style={{flexDirection:'row', marginTop:10}}>
           <Icon name="reload-circle-outline" type="ionicon" size={20} color={orange}/>
           <Text style={{fontSize:20, color:orange}}>Mettre à jour mes informations</Text>
         </TouchableOpacity>

@@ -116,7 +116,7 @@ Cette application à été construite avec les technologies suivantes :
 * [Firebase](https://firebase.google.com/)
 
 ### Composants natifs
-Cette application utilise les composants android natifs suivant :
+Cette application utilise les composants android natifs suivants :
 
 * [Expo Local Authentication (fingerprint sensor)](https://docs.expo.dev/versions/v44.0.0/sdk/local-authentication/)
 * [Expo Device (Device informations)](https://docs.expo.dev/versions/latest/sdk/device/)

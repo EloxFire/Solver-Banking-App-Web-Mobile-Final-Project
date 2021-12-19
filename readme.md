@@ -93,8 +93,10 @@ Bien sur, Solver sera soumise à de nombreuses futures mises à jour, qui auront
   <img src="https://cdn.discordapp.com/attachments/814250385190420483/922243834551865424/alert-circle-outline.png" width="30" alt="Alter Circle">
   Application utilisable uniquement sur android
   <img src="https://cdn.discordapp.com/attachments/814250385190420483/922243834551865424/alert-circle-outline.png" width="30" alt="Alter Circle">
-
 </div>
+
+</br>
+</br>
 
 [![Solver - Banking app][product-screenshot]](https://example.com)
 

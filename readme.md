@@ -59,6 +59,9 @@
       <ul>
         <li><a href="#built-with">Technologies</a></li>
       </ul>
+      <ul>
+        <li><a href="#native-components">Compants natifs</a></li>
+      </ul>
     </li>
     <li>
       <a href="#getting-started">Utiliser le projet en dev</a>
@@ -112,8 +115,15 @@ Cette application à été construite avec les technologies suivantes :
 * [Expo](https://expo.dev/)
 * [Firebase](https://firebase.google.com/)
 
-Composants natifs utilisés :
+### Composants natifs
+Cette application utilise les composants android natifs suivant :
 
+* [Expo Local Authentication (fingerprint sensor)](https://docs.expo.dev/versions/v44.0.0/sdk/local-authentication/)
+* [Expo Device (Device informations)](https://docs.expo.dev/versions/latest/sdk/device/)
+* [Expo Battery (Device battery)](https://docs.expo.dev/versions/v44.0.0/sdk/battery/)
+* [Expo Status Bar (Top phone status bar)](https://docs.expo.dev/versions/latest/sdk/status-bar/)
+* [Expo Sharing (Social sharing)](https://docs.expo.dev/versions/v44.0.0/sdk/sharing/)
+* [Expo Screen Capture (Disable screenshots in app)](https://docs.expo.dev/versions/v44.0.0/sdk/screen-capture/)
 
 <p align="right">(<a href="#top">haut de page</a>)</p>
 

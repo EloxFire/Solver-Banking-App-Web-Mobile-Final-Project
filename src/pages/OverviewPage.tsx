@@ -12,14 +12,13 @@ import { balanceCalculator } from '../utils/balance_calculator';
 
 export default function OverviewPage({ navigation } : any) {
 
-  // const [user, setUser] = useState({username:"Loading"});
   const [user, setUser] = useState({
     user_uuid: "Chargement",
     user_display_name: "Chargement",
     created_at: "Chargement",
     updated_at: "Chargement",
     user_mail: "Chargement",
-    user_mail_verified: "Chargement",
+    user_mail_verified: "Chargemennt",
     user_phone: "Chargement",
     user_age: "Chargement",
     user_town: "Chargement",
@@ -54,6 +53,7 @@ export default function OverviewPage({ navigation } : any) {
         return doc.data();
       });
       // console.log(data);
+      console.log("USER DATA OVERVIEW :", data);
       setUser(data[0]);
     });
   }, []);

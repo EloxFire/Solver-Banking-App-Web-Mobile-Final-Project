@@ -61,8 +61,12 @@ export default function SigninPage({ navigation }: any) {
         unsuccessfullLoginFeedback !== "" &&
         <Text style={commonStyles.failureText}>{unsuccessfullLoginFeedback}</Text>
       }
-      <Text style={commonStyles.forgotPass}>Mot de passe oublié ?</Text>
-      <Text style={commonStyles.forgotPass}>Pas encore de compte ? <Text style={commonStyles.redSpan}>Créez en un ici...</Text></Text>
+      <TouchableOpacity onPress={() => navigation.push("ForgotPass")}>
+        <Text style={commonStyles.forgotPass}>Mot de passe oublié ?</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.push("SignUp")}>
+        <Text style={commonStyles.forgotPass}>Pas encore de compte ? <Text style={commonStyles.redSpan}>Créez en un ici...</Text></Text>
+      </TouchableOpacity>
     </View>
   );
 }

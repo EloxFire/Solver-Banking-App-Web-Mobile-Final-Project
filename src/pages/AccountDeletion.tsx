@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, ToastAndroid } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { getAuth, deleteUser } from 'firebase/auth';
 import { getFirestore, deleteDoc, doc, collection, where, query, getDocs } from 'firebase/firestore';
@@ -51,6 +51,7 @@ export default function AccountDeletion({ navigation } : any){
       const db = getFirestore();
       deleteDoc(doc(db, "users", userAccountRef));
       navigation.push("Login");
+      ToastAndroid.show('Request sent successfully!', ToastAndroid.SHORT);
     }).catch((error) => {
       console.log(error);
     })

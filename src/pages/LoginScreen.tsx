@@ -39,7 +39,7 @@ export default function LoginScreen({ navigation }: any) {
             nav_direction="SignUp"
           />
         </View>
-        <Text style={commonStyles.forgotPass}>Mot de passe oublié ?</Text>
+        {/* <Text style={commonStyles.forgotPass}>Mot de passe oublié ?</Text> */}
       </View>
     </View>
   );

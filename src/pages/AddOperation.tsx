@@ -85,11 +85,11 @@ export default function AddExpense(){
       operation_state: operationType,
       operation_category: categories,
       user_uid: user.uid,
-    })
+    });
 
     updateDoc(docRef, {
       operation_id: docRef.id
-    })
+    });
 
     navigation.push("Overview");
   }

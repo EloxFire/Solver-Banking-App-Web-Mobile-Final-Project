@@ -24,16 +24,22 @@ export default function SignupPage({ navigation }: any) {
       return;
     }
 
-    const db = getFirestore();
-    const docRef = await addDoc(collection(db, "users"), {
+    const new_user = {
       user_display_name: fullName,
       user_mail: username,
+      user_mail_verified: false,
+      user_photoUrl: null,
       user_phone: "N/A",
       user_age: "N/A",
       user_town: "N/A",
       created_at: new Date(),
       updated_at: new Date(),
-    });
+    }
+
+    console.log("NEW USER :", new_user);
+
+    const db = getFirestore();
+    const docRef = await addDoc(collection(db, "users"), new_user);
 
     updateDoc(docRef, {
       user_ref: docRef.id
@@ -76,6 +82,9 @@ export default function SignupPage({ navigation }: any) {
       </View>
       <TouchableOpacity onPress={() => registerUser()} style={[commonStyles.button, {backgroundColor: black}]}>
         <Text style={[commonStyles.buttonText, {color: white}]}>Inscription</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.push("SignIn")}>
+        <Text style={commonStyles.forgotPass}>Vous avez un compte ? <Text style={commonStyles.redSpan}>Connectez-vous</Text></Text>
       </TouchableOpacity>
       {
         successfullRegisterFeedback !== "" &&

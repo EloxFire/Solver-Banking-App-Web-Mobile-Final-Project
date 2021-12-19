@@ -89,12 +89,12 @@ Fonctionnalitées principales :
 
 Bien sur, Solver sera soumise à de nombreuses futures mises à jour, qui auront pour but de toujours améliorer l'application !
 
-
-<p align="center" style="color:#fa8231">
+<div align="center" style="color:'#fa8231'">
   <img src="https://cdn.discordapp.com/attachments/814250385190420483/922243834551865424/alert-circle-outline.png" width="30" alt="Alter Circle">
   Application utilisable uniquement sur android
   <img src="https://cdn.discordapp.com/attachments/814250385190420483/922243834551865424/alert-circle-outline.png" width="30" alt="Alter Circle">
-</p>
+
+</div>
 
 [![Solver - Banking app][product-screenshot]](https://example.com)
 

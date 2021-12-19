@@ -90,9 +90,9 @@ Fonctionnalitées principales :
 Bien sur, Solver sera soumise à de nombreuses futures mises à jour, qui auront pour but de toujours améliorer l'application !
 
 
-<p style="color:#fa8231,text-align:center">
+<p align="center" style="color:#fa8231">
   <img src="https://cdn.discordapp.com/attachments/814250385190420483/922243834551865424/alert-circle-outline.png" width="30" alt="Alter Circle">
-  <strong>Application utilisable uniquement sur android</strong>
+  Application utilisable uniquement sur android
   <img src="https://cdn.discordapp.com/attachments/814250385190420483/922243834551865424/alert-circle-outline.png" width="30" alt="Alter Circle">
 </p>
 

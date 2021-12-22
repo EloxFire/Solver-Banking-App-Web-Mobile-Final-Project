@@ -62,7 +62,7 @@ export default function SignupPage({ navigation }: any) {
       .then(() => {
         navigation.push('Login');
       });
-      navigation.push("Overview");
+      // navigation.push("Overview");
     })
     .catch((error) => {
       const errorMessage = error.message;

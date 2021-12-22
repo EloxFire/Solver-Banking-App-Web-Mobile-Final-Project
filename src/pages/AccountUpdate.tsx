@@ -15,6 +15,7 @@ export default function AccountUpdate({ navigation } : any){
   const [mail, setMail] = useState("");
 
   const [addFeedback, setAddFeedback] = useState("");
+  const [addFeedbackFail, setAddFeedbackFail] = useState("");
   const [user, setUser] = useState({
     uuid: "Chargement",
     username: "Chargement",
@@ -74,7 +75,8 @@ export default function AccountUpdate({ navigation } : any){
       user_age: age !== "" ? parseInt(age) : user.age,
       user_mail: mail !== "" ? mail : user.mail,
       user_phone: phone !== "" ? phone : user.phone,
-      user_town: town !== "" ? town : user.town
+      user_town: town !== "" ? town : user.town,
+      updated_at: new Date(),
     }
 
     const docRef = doc(db, 'users', user.ref);
@@ -82,8 +84,10 @@ export default function AccountUpdate({ navigation } : any){
       updateDoc(docRef, newInfos);
     } catch (e) {
       console.log(e);
+      setAddFeedbackFail("Une erreur est survenue lors de la mise à jour de vos données...")
     } finally {
       setAddFeedback('Mise à jour réussie !');
+      navigation.push('Profile');
     }
   }
 
@@ -100,7 +104,8 @@ export default function AccountUpdate({ navigation } : any){
         <TouchableOpacity onPress={() => updateAccountInformations()} style={[commonStyles.button, {marginTop: 20}]}>
           <Text style={commonStyles.buttonText}>Mettre à jour</Text>
         </TouchableOpacity>
-        <Text style={commonStyles.failureText}>{addFeedback}</Text>
+        <Text style={commonStyles.failureText}>{addFeedbackFail}</Text>
+        <Text style={commonStyles.successText}>{addFeedback}</Text>
       </View>
     </View>
   )

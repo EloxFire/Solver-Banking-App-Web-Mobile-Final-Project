@@ -10,51 +10,63 @@ import { accountDeletionStyles } from '../styles/accountDeletion';
 export default function AccountDeletion({ navigation } : any){
 
   const [deletionError, setDeletionError] = useState("");
-  const [userAccountRef, setUserAccountRef] = useState("");
+  const [user, setUser] = useState({
+    uuid: "Chargement",
+    username: "Chargement",
+    created_at: "Chargement",
+    updated_at: "Chargement",
+    mail: "Chargement",
+    emailVerified: "Chargement",
+    phone: "Chargement",
+    age: "Chargement",
+    town: "Chargement",
+    photoUrl: null,
+  });
 
   useEffect(() => {
-    getCurrentUser();
-  })
-
-  const getCurrentUser = async () => {
     const auth = getAuth();
-    const user = auth.currentUser;
-
-    let uid;
-    if (user !== null) {
-      uid = user.uid;
-    }
-
+    const currentUser = auth.currentUser;
     const db = getFirestore();
-    const operationsRef = collection(db, 'users');
+    const usersRef = collection(db, 'users');
 
-    //GET ALL OPERATIONS REGISTERED
-    const q1 = query(operationsRef,
-      where("user_uuid", "==", uid)
-    );
+    let uid, emailVerified;
+    if (currentUser !== null) {
+      uid = currentUser.uid;
+      emailVerified = currentUser.emailVerified;
+      const q1 = query(usersRef,
+        where("user_uuid", "==", uid)
+      );
 
-    getDocs(q1)
-    .then((response) => {
-      const data = response.docs.map((doc, index) => {
-        return doc.data();
+      getDocs(q1)
+      .then((response) => {
+        const data = response.docs.map((doc, index) => {
+          return doc.data();
+        });
+        console.log("DELETE PAGE GET :", data[0]);
+        setUser({
+          uuid: data[0].user_uuid,
+          username: data[0].user_display_name,
+          created_at: data[0].created_at.toDate().toDateString(),
+          updated_at: data[0].updated_at.toDate().toDateString(),
+          mail: data[0].user_mail,
+          emailVerified: data[0].user_mail_verified,
+          phone: data[0].user_phone,
+          age: data[0].user_age,
+          town: data[0].user_town,
+          photoUrl: null,
+          ref: data[0].user_ref,
+        });
       });
-      setUserAccountRef(data[0].user_ref);
-    });
-  }
+    }
+  }, []);
 
 
-  const deleteUserAccount = () => {
+  const deleteUserAccount = async () => {
     const auth = getAuth();
     const user = auth.currentUser;
+    console.log("USER REF IN DELETE PAGE :", user.ref);
 
-    deleteUser(user).then(() => {
-      const db = getFirestore();
-      deleteDoc(doc(db, "users", userAccountRef));
-      navigation.push("Login");
-      ToastAndroid.show('Request sent successfully!', ToastAndroid.SHORT);
-    }).catch((error) => {
-      console.log(error);
-    })
+    deleteUser(user);
   }
 
 
@@ -75,7 +87,7 @@ export default function AccountDeletion({ navigation } : any){
           <TouchableOpacity onPress={() => deleteUserAccount()} style={[commonStyles.button, {width: "100%"}]}>
             <Text style={accountDeletionStyles.buttonText}>Oui, procédez</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[commonStyles.button, {width: "100%", backgroundColor: black, marginTop: 10}]}>
+          <TouchableOpacity onPress={() => navigation.push('Profile')} style={[commonStyles.button, {width: "100%", backgroundColor: black, marginTop: 10}]}>
             <Text style={accountDeletionStyles.buttonText}>Non, abandon de la mission</Text>
           </TouchableOpacity>
         </View>

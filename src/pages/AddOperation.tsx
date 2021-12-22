@@ -87,6 +87,8 @@ export default function AddExpense(){
       user_uid: user.uid,
     });
 
+    console.log("DOC REF ADD OPERATION", docRef);
+
     updateDoc(docRef, {
       operation_id: docRef.id
     });

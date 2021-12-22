@@ -192,7 +192,19 @@ Cette application utilise les composants android natifs suivants :
 - [ ] Publish beta on Google Play
 - [ ] iOS support
 
-Allez voir les [issues Github](https://github.com/othneildrew/Best-README-Template/issues) ouvertes pour un aperçu général des demandes d'ajout de fonctionnalitées.
+Allez voir les [issues Github](https://github.com/EloxFire/Solver-Banking-App-Web-Mobile-Final-Project/issues) ouvertes pour un aperçu général des demandes d'ajout de fonctionnalitées.
+
+<p align="right">(<a href="#top">haut de page</a>)</p>
+
+
+<!-- ROADMAP -->
+## BUGS Connus
+
+| Problème                                            | Solution                                                                 |
+|-----------------------------------------------------|--------------------------------------------------------------------------|
+| Problème lors du premier login après l'inscription. | Se connecter une première fois puis retenter quelques secondes plus tard |
+
+Consultez les [issues ouvertes](https://github.com/EloxFire/Solver-Banking-App-Web-Mobile-Final-Project/issues) pour suivre l'avancement des résolutions de bugs
 
 <p align="right">(<a href="#top">haut de page</a>)</p>
 

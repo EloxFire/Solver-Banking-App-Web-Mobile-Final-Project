@@ -48,10 +48,12 @@ export default function SignupPage({ navigation }: any) {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
-      // console.log("USER CREDENTIAL", userCredential);
+      // console.log("USER CREDENTIAL", userCredential.user.uid);
+      // console.log("DOC REF: ", docRef);
       console.log("User successfully registered");
       setSuccessfullRegisterFeedback("Inscription réussie !");
 
+      // WARNING: WTF NOT UPDATING DOC... Knonw BUG
       updateDoc(docRef, {
         user_uuid: userCredential.user.uid
       });
@@ -60,7 +62,7 @@ export default function SignupPage({ navigation }: any) {
       .then(() => {
         navigation.push('Login');
       });
-      // navigation.push("Overview");
+      navigation.push("Overview");
     })
     .catch((error) => {
       const errorMessage = error.message;

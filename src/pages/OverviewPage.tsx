@@ -52,7 +52,12 @@ export default function OverviewPage({ navigation } : any) {
       const data = response.docs.map((doc, index) => {
         return doc.data();
       });
-      // console.log(data);
+
+      if(data[0] === undefined){
+        return;
+      }
+
+      // console.log(data[0]);
       console.log("USER DATA OVERVIEW :", data);
       setUser(data[0]);
     });

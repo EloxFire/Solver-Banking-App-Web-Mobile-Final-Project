@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Solver-Banking-App-Web-Mobile-Final-Project",
-    "slug": "Solver-Banking-App-Web-Mobile-Final-Project",
+    "name": "Solver - Banking app",
+    "slug": "Solver",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

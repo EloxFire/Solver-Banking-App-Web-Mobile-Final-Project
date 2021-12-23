@@ -72,6 +72,7 @@
     </li>
     <li><a href="#usage">Utilisation</a></li>
     <li><a href="#roadmap">Roadmap de développement</a></li>
+    <li><a href="#known-bugs">BUGs connus</a></li>
     <!-- <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li> -->
     <li><a href="#contact">Contact</a></li>
@@ -137,6 +138,19 @@ Cette application utilise les composants android natifs suivants :
 * npm
   ```sh
   npm install npm@latest -g
+  ```
+
+* expo-CLI
+  ```sh
+  npm install -g expo-cli
+  ```
+
+* L'application Expo Go pour iOS et Android
+  ```sh
+  #Android :
+  - https://play.google.com/store/apps/details?id=host.exp.exponent
+  # iOS :
+  - https://search.itunes.apple.com/WebObjects/MZContentLink.woa/wa/link?path=apps%2fexponent
   ```
 
 ### Installation

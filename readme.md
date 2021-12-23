@@ -40,8 +40,8 @@
     <br />
     <!-- <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a> -->
     <br />
-    <!-- <a href="https://github.com/othneildrew/Best-README-Template">Télécharger l'application</a>
-    · -->
+    <a href="https://exp-shell-app-assets.s3.us-west-1.amazonaws.com/android/%40eloxfire/Solver-1c8066de1e1948d1ac4ab1a64daa3f31-signed.apk">Télécharger l'application</a>
+    ·
     <a href="https://github.com/EloxFire/Solver-Banking-App-Web-Mobile-Final-Project/issues">Reporter un bug</a>
     ·
     <a href="https://github.com/EloxFire/Solver-Banking-App-Web-Mobile-Final-Project/issues">Demander un ajout</a>

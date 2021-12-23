@@ -193,6 +193,7 @@ export default function OverviewPage({ navigation } : any) {
                 hour={operation.operation_date.toDate().toLocaleTimeString('fr-FR')}
                 state={operation.operation_state}
                 amount={operation.operation_amount}
+                id={operation.operation_id}
               />
             )
           })

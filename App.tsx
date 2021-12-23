@@ -43,7 +43,7 @@ export default function App() {
       setIsBiometricSupported(compatible);
     })();
 
-    // handleBiometricAuth();
+    handleBiometricAuth();
   });
 
   useEffect(() => {
